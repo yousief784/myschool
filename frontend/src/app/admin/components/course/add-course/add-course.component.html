@@ -1,0 +1,60 @@
+<button
+  class="btn btn-success ms-3"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#staticBackdrop"
+  aria-controls="staticBackdrop"
+>
+  Add
+</button>
+
+<div
+  class="offcanvas offcanvas-end"
+  data-bs-backdrop="static"
+  tabindex="-1"
+  id="staticBackdrop"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="staticBackdropLabel">Add a course</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <form [formGroup]="addCourseValidation" (ngSubmit)="addNewCourse()">
+        <div class="mb-3">
+          <label for="className" class="form-label">Course name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="courseName"
+            formControlName="courseName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="classId" class="form-label">Class name</label>
+          <select name="classID" class="form-select" formControlName="classId">
+            <option value="" disabled selected>Select class year</option>
+            <option *ngFor="let class of classes" value="{{ class._id }}">
+              {{ class.className }}
+            </option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="addCourseValidation.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

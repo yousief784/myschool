@@ -1,0 +1,57 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container">
+      <a routerLink="/" class="nav-link">
+        <div class="pt-3 d-flex">
+          <img src="assets/images/logo.png" height="50" alt="" />
+          <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+        </div>
+      </a>
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+        <app-add-course></app-add-course>
+      </form>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="!courses.length" class="alert alert-warning">
+        No Students in this class
+      </div>
+
+      <div class="card mb-3 px-2 py-1" *ngFor="let course of courses">
+        <div class="row">
+          <div class="col-md-2">
+            <div>
+              <i class="fa-solid fa-book fa-2x mt-2"></i>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="fs-5 d-flex mt-3">
+              <h5 class="me-5">ID: {{ course.courseId }}</h5>
+              <h5>Name: {{course.courseName}}</h5>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <a href="#" class="btn btn-success mt-3 d-grid">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

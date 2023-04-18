@@ -1,0 +1,114 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container">
+      <a routerLink="/" class="nav-link">
+        <div class="pt-3 d-flex">
+          <img src="assets/images/logo.png" height="50" alt="" />
+          <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+        </div>
+      </a>
+      <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+
+        <app-add-student></app-add-student>
+      </form>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="studentAlreadyExist" class="alert alert-danger">
+        {{ studentAlreadyExist }}
+      </div>
+
+      <div *ngIf="studentRemovedSuccessfully" class="alert alert-success">
+        {{ studentRemovedSuccessfully }}
+      </div>
+
+      <div *ngIf="studentRemovedError" class="alert alert-danger">
+        {{ studentRemovedError }}
+      </div>
+
+      <div *ngIf="!students.length" class="alert alert-warning">
+        No Students in this class
+      </div>
+
+      <div class="card mb-3 px-2 py-1" *ngFor="let student of students">
+        <div class="row">
+          <div class="col-md-2">
+            <div>
+              <img src="assets/images/person- 1.jpg" height="70vh" alt="" />
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="fs-5 d-flex mt-3">
+              <h5 class="me-5">ID: {{ student.studentId }}</h5>
+              <h5>Name: {{ student.user.fullname }}</h5>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="">
+              <a href="#" class="btn btn-success mt-3 me-3">Details</a>
+              <button
+                type="button"
+                class="btn btn-danger fw-bold mt-3"
+                (click)="openDeleteStudentModal(student.user._id)"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+
+            <div class="modal" tabindex="-1" #deleteStudentModal>
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <!-- Student Modal Content -->
+                  <div class="modal-header">
+                    <h5 class="modal-title fs-5">Delete Student</h5>
+                    <button
+                      type="button"
+                      (click)="closeDeleteStudentModal()"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete this student?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      (click)="closeDeleteStudentModal()"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-block"
+                      (click)="deleteStudent()"
+                    >
+                      delete student
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End of Student Modal -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

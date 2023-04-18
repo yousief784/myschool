@@ -1,0 +1,268 @@
+<button
+  class="btn btn-success ms-3"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#staticBackdrop"
+  aria-controls="staticBackdrop"
+>
+  Add
+</button>
+
+<div
+  class="offcanvas offcanvas-end"
+  data-bs-backdrop="static"
+  tabindex="-1"
+  id="staticBackdrop"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="staticBackdropLabel">Add a student</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <form [formGroup]="addStudentValidation" (ngSubmit)="addNewStudent()">
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Student Full name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullName"
+            formControlName="fullname"
+            pattern="^[A-Za-z]+\s+[A-Za-z]+\s+[A-Za-z]+\s+[A-Za-z]+$"
+            minlength="2"
+            maxlength="50"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addStudentValidation.get('fullname')!.invalid &&
+            addStudentValidation.get('fullname')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addStudentValidation.get('fullname')!.hasError('required')"
+          >
+            * Name is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="addStudentValidation.get('fullname')!.hasError('pattern')"
+          >
+            * Name should only contain letters and write a valid fullname
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="addStudentValidation.get('fullname')!.hasError('minlength')"
+          >
+            * Minumium length 2 characters
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="addStudentValidation.get('fullname')!.hasError('maxlength')"
+          >
+            * Maximum length 50 characters
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="studentNationalID" class="form-label"
+            >Student Natioanl ID</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="studentNationalID"
+            formControlName="studentNationalID"
+            pattern="[0-9]+$"
+            minlength="14"
+            maxlength="14"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addStudentValidation.get('studentNationalID')!.invalid &&
+            addStudentValidation.get('studentNationalID')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation
+                .get('studentNationalID')!
+                .hasError('required')
+            "
+          >
+            * Student national id is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation.get('studentNationalID')!.hasError('pattern')
+            "
+          >
+            * national id only numbers
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation
+                .get('studentNationalID')!
+                .hasError('minlength')
+            "
+          >
+            * Minumium length 14 number
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation
+                .get('studentNationalID')!
+                .hasError('maxlength')
+            "
+          >
+            * Maximum length 14 number
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="parentNationalID" class="form-label"
+            >Parent Natioanl ID</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="parentNationalID"
+            formControlName="parentNationalID"
+            pattern="[0-9]+$"
+            minlength="14"
+            maxlength="14"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addStudentValidation.get('parentNationalID')!.invalid &&
+            addStudentValidation.get('parentNationalID')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation.get('parentNationalID')!.hasError('required')
+            "
+          >
+            * Parent national id is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation.get('parentNationalID')!.hasError('pattern')
+            "
+          >
+            * national id only numbers
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation
+                .get('parentNationalID')!
+                .hasError('minlength')
+            "
+          >
+            * Minumium length 14 number
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation
+                .get('parentNationalID')!
+                .hasError('maxlength')
+            "
+          >
+            * Maximum length 14 number
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="parentPhone" class="form-label">Parent Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            id="parentPhone"
+            formControlName="parentPhone"
+            pattern="[0-9]+$"
+            minlength="11"
+            maxlength="11"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addStudentValidation.get('parentPhone')!.invalid &&
+            addStudentValidation.get('parentPhone')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation.get('parentPhone')!.hasError('required')
+            "
+          >
+            * Parent phone number is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="addStudentValidation.get('parentPhone')!.hasError('pattern')"
+          >
+            * phone number only numbers
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation.get('parentPhone')!.hasError('minlength')
+            "
+          >
+            * Minumium length 11 number
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addStudentValidation.get('parentPhone')!.hasError('maxlength')
+            "
+          >
+            * Maximum length 11 number
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="addStudentValidation.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 mt-5">
+        <div class="card mt-5 p-3 wow bounceInDown">
+          <form [formGroup]="loginValidation" (ngSubmit)="onSubmit()">
+            <h2 class="text-center fw-bold">My School</h2>
+            <div *ngIf="loginError" class="alert alert-danger">
+              {{ loginError }}
+            </div>
+
+            <label for="" class="fs-5 fw-bold">National ID:</label>
+            <input
+              type="text"
+              class="form-control form-control-lg mb-3"
+              formControlName="nationalID"
+              placeholder="e.g. JoneMark"
+              minlength="14"
+              maxlength="14"
+              pattern="[0-9]+$"
+              required
+            />
+
+            <div
+              *ngIf="
+                loginValidation.get('nationalID')!.invalid &&
+                loginValidation.get('nationalID')!.touched
+              "
+            >
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('nationalID')!.hasError('required')"
+              >
+                * national id is required
+              </div>
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('nationalID')!.hasError('pattern')"
+              >
+                * national id only numbers
+              </div>
+
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('nationalID')!.hasError('minlength')"
+              >
+                * Minumium length 14 number
+              </div>
+
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('nationalID')!.hasError('maxlength')"
+              >
+                * Maximum length 14 number
+              </div>
+            </div>
+
+            <label for="" class="fs-5 fw-bold">Password:</label>
+            <input
+              type="password"
+              class="form-control form-control-lg mb-3"
+              placeholder="e.g. 1Aa#"
+              formControlName="password"
+              placeholder="e.g. JoneMark"
+              minlength="14"
+              maxlength="14"
+              pattern="[0-9]+$"
+              required
+            />
+
+            <div
+              *ngIf="
+                loginValidation.get('password')!.invalid &&
+                loginValidation.get('password')!.touched
+              "
+            >
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('password')!.hasError('required')"
+              >
+                * password is required
+              </div>
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('password')!.hasError('pattern')"
+              >
+                * password only numbers
+              </div>
+
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('password')!.hasError('minlength')"
+              >
+                * Minumium length 14 number
+              </div>
+
+              <div
+                class="text-danger"
+                *ngIf="loginValidation.get('password')!.hasError('maxlength')"
+              >
+                * Maximum length 14 number
+              </div>
+            </div>
+
+            <div class="d-grid pe-5 ps-5">
+              <button
+                type="submit"
+                [disabled]="loginValidation.invalid"
+                class="btn btn-success btn-lg"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</header>
