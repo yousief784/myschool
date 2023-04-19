@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AdminStudentService } from '../../services/adminStudent/admin-student.service';
-import { StudentInterface } from '../../models/student.interface';
+import { IStudent } from 'src/app/admin/models/student.interface';
+import { AdminStudentService } from 'src/app/admin/services/adminStudent/admin-student.service';
 
 @Component({
   selector: 'app-admin-student',
@@ -9,14 +9,12 @@ import { StudentInterface } from '../../models/student.interface';
   styleUrls: ['./admin-student.component.css'],
 })
 export class AdminStudentComponent implements OnInit {
-  @ViewChild('deleteStudentModal') deleteStudentModal: any; // Reference to the student modal
   successMessage: string;
   studentAlreadyExist: string;
   studentRemovedSuccessfully: string;
   studentRemovedError: string;
   classId: number = 0;
-  userId: string = '';
-  students: StudentInterface[] = [];
+  students: IStudent[] = [];
 
   constructor(
     private router: ActivatedRoute,
@@ -55,21 +53,9 @@ export class AdminStudentComponent implements OnInit {
           this.students = response.data;
         }
       },
-      (errors: any) => {}
+      (errors: any) => {
+        console.log(errors);
+      }
     );
-  }
-
-  openDeleteStudentModal(studentId: string) {
-    this.userId = studentId;
-
-    this.deleteStudentModal.nativeElement.style.display = 'block'; // Show student modal
-  }
-
-  closeDeleteStudentModal() {
-    this.deleteStudentModal.nativeElement.style.display = 'none'; // Hide student modal
-  }
-
-  deleteStudent() {
-    this.adminStudentService.deleteStudent(this.userId);
   }
 }

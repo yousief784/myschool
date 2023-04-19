@@ -57,54 +57,14 @@
             </div>
           </div>
           <div class="col-md-2">
-            <div class="">
-              <a href="#" class="btn btn-success mt-3 me-3">Details</a>
-              <button
-                type="button"
-                class="btn btn-danger fw-bold mt-3"
-                (click)="openDeleteStudentModal(student.user._id)"
-              >
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </div>
+            <app-student-details
+              [studentId]="student._id"
+            ></app-student-details>
 
-            <div class="modal" tabindex="-1" #deleteStudentModal>
-              <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                  <!-- Student Modal Content -->
-                  <div class="modal-header">
-                    <h5 class="modal-title fs-5">Delete Student</h5>
-                    <button
-                      type="button"
-                      (click)="closeDeleteStudentModal()"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <p>Are you sure you want to delete this student?</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      (click)="closeDeleteStudentModal()"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger btn-block"
-                      (click)="deleteStudent()"
-                    >
-                      delete student
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <app-student-delete
+              [userId]="student.user._id"
+            ></app-student-delete>
+
             <!-- End of Student Modal -->
           </div>
         </div>

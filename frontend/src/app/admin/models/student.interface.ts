@@ -1,6 +1,5 @@
-export interface StudentInterface {
+export interface IStudent {
   _id: string;
-  classId: number;
   studentId: number;
   user: {
     _id: string;
@@ -15,5 +14,10 @@ export interface StudentInterface {
       parentName: string;
       nationalID: string;
     };
+  };
+  class: {
+    _id: string;
+    className: string;
+    classId: number;
   };
 }

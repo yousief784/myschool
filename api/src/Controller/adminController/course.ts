@@ -6,10 +6,15 @@ import Class from '../../schema/classSchema';
 class CourseController {
     index = async (_req: Request, res: Response, next: NextFunction) => {
         try {
-            const courses = await Course.find({isDeleted: false}).select([
-                'courseName',
-                'courseId',
-            ]);
+            const courses = await Course.find({ isDeleted: false })
+                .select(['courseName', 'courseId'])
+                .populate([
+                    {
+                        path: 'classId',
+                        model: Class,
+                        select: ['_id', 'className'],
+                    },
+                ]);
 
             if (!courses)
                 return res.status(404).json({

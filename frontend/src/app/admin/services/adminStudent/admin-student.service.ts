@@ -22,6 +22,15 @@ export class AdminStudentService {
     });
   }
 
+  showStudentDetails(studentId: string) {
+    return this.http.get(
+      `${environment.apiUrl}/api/admin/student/show/${studentId}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
   addNewStudent(student: object) {
     return this.http
       .post(`${environment.apiUrl}/api/admin/student/add-student`, student, {
@@ -51,7 +60,9 @@ export class AdminStudentService {
 
   deleteStudent(userId: string) {
     return this.http
-      .delete(`${environment.apiUrl}/api/admin/student/${userId}`, {headers: this.headers})
+      .delete(`${environment.apiUrl}/api/admin/student/${userId}`, {
+        headers: this.headers,
+      })
       .subscribe(
         (response: any) => {
           if (response.status == 200) {

@@ -1,0 +1,70 @@
+<button
+  type="button"
+  class="btn btn-success fw-bold me-3 mt-3"
+  (click)="openDetailsStudentModal()"
+>
+  Details
+</button>
+<div class="modal" tabindex="-1" #detailsStudentModal>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <!-- Student Modal Content -->
+      <div class="modal-header">
+        <h5 class="modal-title fs-5">Student Details</h5>
+        <button
+          type="button"
+          (click)="closeDetailsStudentModal()"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group my-2">
+          <label for="studentId">Student ID:</label>
+          <span id="studentId">{{ studentDetails.studentId }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="studentName">Student Name:</label>
+          <span id="studentName">{{ studentDetails.user.fullname }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="parentName">Parent Name:</label>
+          <span id="parentName">{{ studentDetails.parent.user.parentName }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="parentPhone">Parent Phone:</label>
+          <span id="parentPhone">{{ studentDetails.parent.parentPhone }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="studentClassId">Class ID:</label>
+          <span id="studentClassId">{{ studentDetails.class.classId }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="studentClassName">Class Name:</label>
+          <span id="studentClassName">{{ studentDetails.class.className }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="studentNationalId">Student National ID:</label>
+          <span id="studentNationalId">{{ studentDetails.user.nationalID }}</span> 
+        </div>
+        <div class="form-group my-2">
+          <label for="parentNationalId">Parent National ID:</label>
+          <span id="parentNationalId">
+            {{ studentDetails.parent.user.nationalID }}
+          </span> 
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          (click)="closeDetailsStudentModal()"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -76,6 +76,65 @@ class AdminStudentController {
         }
     };
 
+    show = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { studentId } = req.params;
+
+            if (!studentId)
+                return res.status(404).json({
+                    status: 404,
+                    message: 'Class id not found',
+                });
+
+            const studentInThisClass = await Student.findOne({
+                _id: studentId,
+                isDeleted: false,
+            })
+                .populate([
+                    {
+                        path: 'user',
+                        model: User,
+                        select: ['fullname', 'nationalID'],
+                    },
+                    {
+                        path: 'class',
+                        model: Class,
+                        select: ['className', 'classId'],
+                    },
+                ])
+                .populate([
+                    {
+                        path: 'parent',
+                        model: Parent,
+                        select: ['parentPhone'],
+                        populate: [
+                            {
+                                path: 'user',
+                                model: User,
+                                select: ['parentName', 'nationalID'],
+                            },
+                        ],
+                    },
+                ])
+                .select(['_id', 'studentId']);
+
+            if (!studentInThisClass)
+                return res.status(404).json({
+                    status: 404,
+                    message: 'not found this student',
+                });
+
+            res.status(200).json({
+                status: 200,
+                data: studentInThisClass,
+                message: 'Get all student successfully',
+            });
+        } catch (error) {
+            logger.error('An error occurred', { error: error });
+            return next(error);
+        }
+    };
+
     addStudent = async (
         req: Request,
         res: Response,
@@ -121,7 +180,6 @@ class AdminStudentController {
             //check if student is already exist or not if not exist create new user as student
             const addUser = await User.findOne({
                 nationalID: studentNationalID,
-                isDeleted: false,
             }).then(async (existingUser: any) => {
                 if (existingUser) studentAlreadyExist = true;
                 else {

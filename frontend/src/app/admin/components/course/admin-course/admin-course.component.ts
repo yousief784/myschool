@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ICourse } from 'src/app/admin/models/course.interface';
 import { CourseService } from 'src/app/admin/services/course/course.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { CourseService } from 'src/app/admin/services/course/course.service';
 export class AdminCourseComponent implements OnInit {
   successMessage: string;
   errorMessage: string;
-  courses: any = [''];
+  courses: ICourse[] = [];
 
   constructor(private courseService: CourseService) {
     this.successMessage =
@@ -25,6 +26,8 @@ export class AdminCourseComponent implements OnInit {
   ngOnInit(): void {
     this.courseService.getAllCourses().subscribe((response: any) => {
       if (response.status == 200) {
+        console.log(response.data);
+        
         this.courses = response.data;
       }
     });

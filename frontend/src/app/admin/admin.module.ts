@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { AdminStudentComponent } from './components/admin-student/admin-student.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AddStudentComponent } from './components/add-student/add-student.component';
+import { AddStudentComponent } from './components/student/add-student/add-student.component';
 import { AddCourseComponent } from './components/course/add-course/add-course.component';
 import { AdminCourseComponent } from './components/course/admin-course/admin-course.component';
+import { AdminStudentComponent } from './components/student/admin-student/admin-student.component';
+import { StudentDetailsComponent } from './components/student/student-details/student-details.component';
+import { StudentDeleteComponent } from './components/student/student-delete/student-delete.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { AdminCourseComponent } from './components/course/admin-course/admin-cou
     AddStudentComponent,
     AddCourseComponent,
     AdminCourseComponent,
+    StudentDetailsComponent,
+    StudentDeleteComponent,
   ],
   imports: [
     CommonModule,

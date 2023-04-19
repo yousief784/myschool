@@ -44,12 +44,13 @@
           <div class="col-md-8">
             <div class="fs-5 d-flex mt-3">
               <h5 class="me-5">ID: {{ course.courseId }}</h5>
-              <h5>Name: {{course.courseName}}</h5>
+              <h5 class="me-5">Name: {{ course.courseName }}</h5>
+              <h5>Class Name: {{ course.classId.className }}</h5>
             </div>
           </div>
-          <div class="col-md-2">
+          <!-- <div class="col-md-2">
             <a href="#" class="btn btn-success mt-3 d-grid">Details</a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

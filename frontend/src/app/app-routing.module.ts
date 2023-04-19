@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AdminDashboardComponent } from './admin/components/admin-dashboard/admin-dashboard.component';
-import { AdminStudentComponent } from './admin/components/admin-student/admin-student.component';
 import { ParentDashboardComponent } from './parent/components/parent-dashboard/parent-dashboard.component';
 import { StudentDashboardComponent } from './student/components/student-dashboard/student-dashboard.component';
 import { AuthGuard } from './guard/auth/auth.guard';
@@ -12,6 +11,7 @@ import { ParentGuard } from './guard/parent/parent.guard';
 import { StudentGuard } from './guard/student/student.guard';
 import { CheckAuthLoginPageGuard } from './guard/checkAuthLoginPage/check-auth-login-page.guard';
 import { AdminCourseComponent } from './admin/components/course/admin-course/admin-course.component';
+import { AdminStudentComponent } from './admin/components/student/admin-student/admin-student.component';
 
 const routes: Routes = [
   {
