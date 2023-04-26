@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { AdimnInterface } from '../interfaces/admin.interface';
+import { IAdmin } from '../interfaces/admin.interface';
 
-const adminSchema = new Schema<AdimnInterface>(
+const adminSchema = new Schema<IAdmin>(
     {
         user: {
             type: Schema.Types.ObjectId,
@@ -17,6 +17,6 @@ const adminSchema = new Schema<AdimnInterface>(
     { timestamps: true }
 );
 
-const Admin = mongoose.model<AdimnInterface>('Admin', adminSchema);
+const Admin = mongoose.model<IAdmin>('Admin', adminSchema);
 
 export default Admin;

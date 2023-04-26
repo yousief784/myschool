@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { ClassInterface } from '../interfaces/class.interface';
+import { IClass } from '../interfaces/class.interface';
 
-const classSchema = new Schema<ClassInterface>(
+const classSchema = new Schema<IClass>(
     {
         className: {
             type: String,
@@ -38,5 +38,5 @@ classSchema.pre('save', function (next) {
     });
 });
 
-const Class = mongoose.model<ClassInterface>('Class', classSchema);
+const Class = mongoose.model<IClass>('Class', classSchema);
 export default Class;

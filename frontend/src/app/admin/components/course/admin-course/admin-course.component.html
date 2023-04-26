@@ -30,9 +30,7 @@
         {{ errorMessage }}
       </div>
 
-      <div *ngIf="!courses.length" class="alert alert-warning">
-        No Students in this class
-      </div>
+      <div *ngIf="!courses.length" class="alert alert-warning">No Courses Added</div>
 
       <div class="card mb-3 px-2 py-1" *ngFor="let course of courses">
         <div class="row">
@@ -45,7 +43,11 @@
             <div class="fs-5 d-flex mt-3">
               <h5 class="me-5">ID: {{ course.courseId }}</h5>
               <h5 class="me-5">Name: {{ course.courseName }}</h5>
-              <h5>Class Name: {{ course.classId.className }}</h5>
+              <h5 class="me-5">Class Name: {{ course.classId.className }}</h5>
+              <h5 class="ms-3">
+                Teacher Name:
+                {{ course.teacher.user.fullname }}
+              </h5>
             </div>
           </div>
           <!-- <div class="col-md-2">

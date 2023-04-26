@@ -22,6 +22,15 @@ export class CourseService {
     });
   }
 
+  getCoursesByClass(classId: string) {
+    return this.http.get(
+      `${environment.apiUrl}/api/student/course/${classId}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
   addNewCourse(course: object) {
     return this.http
       .post(`${environment.apiUrl}/api/admin/course/create`, course, {

@@ -1,0 +1,140 @@
+<button
+  class="btn btn-success ms-3"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#staticBackdrop"
+  aria-controls="staticBackdrop"
+>
+  Add
+</button>
+
+<div
+  class="offcanvas offcanvas-end"
+  data-bs-backdrop="static"
+  tabindex="-1"
+  id="staticBackdrop"
+  aria-labelledby="staticBackdropLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="staticBackdropLabel">Add a Teacher</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <form [formGroup]="addTeacherValidation" (ngSubmit)="addTeacher()">
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Teacher Full name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullName"
+            formControlName="fullname"
+            pattern="^[A-Za-z]+\s+[A-Za-z]+\s+[A-Za-z]+\s+[A-Za-z]+$"
+            minlength="2"
+            maxlength="50"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addTeacherValidation.get('fullname')!.invalid &&
+            addTeacherValidation.get('fullname')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addTeacherValidation.get('fullname')!.hasError('required')"
+          >
+            * Name is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="addTeacherValidation.get('fullname')!.hasError('pattern')"
+          >
+            * Name should only contain letters and write a valid fullname
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="addTeacherValidation.get('fullname')!.hasError('minlength')"
+          >
+            * Minumium length 2 characters
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="addTeacherValidation.get('fullname')!.hasError('maxlength')"
+          >
+            * Maximum length 50 characters
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="nationalID" class="form-label">Natioanl ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nationalID"
+            formControlName="nationalID"
+            pattern="[0-9]+$"
+            minlength="14"
+            maxlength="14"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addTeacherValidation.get('nationalID')!.invalid &&
+            addTeacherValidation.get('nationalID')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addTeacherValidation.get('nationalID')!.hasError('required')"
+          >
+            * Student national id is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="addTeacherValidation.get('nationalID')!.hasError('pattern')"
+          >
+            * national id only numbers
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addTeacherValidation.get('nationalID')!.hasError('minlength')
+            "
+          >
+            * Minumium length 14 number
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              addTeacherValidation.get('nationalID')!.hasError('maxlength')
+            "
+          >
+            * Maximum length 14 number
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="addTeacherValidation.invalid"
+          class="btn btn-success"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

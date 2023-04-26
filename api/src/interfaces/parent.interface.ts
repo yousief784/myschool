@@ -1,10 +1,10 @@
-import { StudentInterface } from './student.interface';
-import { UserInterface } from './user.interface';
+import { IStudent } from './student.interface';
+import { IUser } from './user.interface';
 
-export interface ParentInterface {
+export interface IParent {
     _id: string;
-    user: UserInterface;
+    user: IUser;
     parentPhone: string;
-    students: StudentInterface[];
+    students: IStudent[];
     isDeleted: boolean;
 }

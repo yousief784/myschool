@@ -19,4 +19,8 @@ export class UserService {
       ),
     });
   }
+
+  getUserId() {
+    return localStorage.getItem('userId');
+  }
 }

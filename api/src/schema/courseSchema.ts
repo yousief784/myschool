@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import { NextFunction } from 'express';
-import { CourseInterface } from '../interfaces/course.interface';
+import { ICourse } from '../interfaces/course.interface';
 
-const courseSchema = new Schema<CourseInterface>(
+const courseSchema = new Schema<ICourse>(
     {
         courseName: {
             type: String,
@@ -15,10 +15,18 @@ const courseSchema = new Schema<CourseInterface>(
             type: Number,
             unique: true,
         },
+        numberOfTimesPerWeek: {
+            type: Number,
+        },
         classId: {
             type: Schema.Types.ObjectId,
             required: true,
             ref: 'User',
+        },
+        teacher: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'Teacher',
         },
         isDeleted: {
             type: Boolean,
@@ -44,5 +52,5 @@ courseSchema.pre('save', function (next) {
     });
 });
 
-const Course = mongoose.model<CourseInterface>('Course', courseSchema);
+const Course = mongoose.model<ICourse>('Course', courseSchema);
 export default Course;

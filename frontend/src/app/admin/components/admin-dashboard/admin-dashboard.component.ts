@@ -45,12 +45,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.classService.getAllClasses().subscribe((response: any) => {
-      if (response.status == 200) {
-        this.classes = response.data;
-      }
-    });
-
     this.userService.getUserData().subscribe(
       (response: any) => {
         if (response.status == 200) this.user = response.data;
@@ -60,6 +54,12 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   openStudentModal() {
+    this.classService.getAllClasses().subscribe((response: any) => {
+      if (response.status == 200) {
+        this.classes = response.data;
+      }
+    });
+
     this.studentModal.nativeElement.style.display = 'block'; // Show student modal
   }
 

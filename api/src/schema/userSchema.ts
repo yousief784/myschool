@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
-import { UserInterface } from '../interfaces/user.interface';
+import { IUser } from '../interfaces/user.interface';
 
-const userSchema: any = new Schema<UserInterface>(
+const userSchema: any = new Schema<IUser>(
     {
         fullname: {
             type: String,
@@ -64,6 +64,6 @@ userSchema.plugin(passportLocalMongoose, {
     usernameField: 'nationalID',
 });
 
-const User = mongoose.model<UserInterface>('User', userSchema);
+const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;

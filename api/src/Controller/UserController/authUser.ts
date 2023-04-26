@@ -17,7 +17,6 @@ class AuthController {
             authToken: authToken,
             isDeleted: false,
         }).select(['_id', 'fullname', 'parentName', 'nationalID']);
-        console.log(showUser);
 
         if (!showUser)
             return res.status(404).json({
@@ -103,6 +102,8 @@ class AuthController {
     login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const user = req.user && Object.assign(req.user);
+            console.log('hello', req.body);
+
             let role: string = '';
             if (!user) {
                 const error = new Error('An error occurred.');
@@ -110,10 +111,10 @@ class AuthController {
                 return next(error);
             }
 
-            const isAdmin = await Admin.findOne({ user: user.id }).count();
-            const isStudent = await Student.findOne({ user: user.id }).count();
-            const isParent = await Parent.findOne({ user: user.id }).count();
-            const isTeacher = await Teacher.findOne({ user: user.id }).count();
+            const isAdmin = await Admin.findOne({ user: user._id }).count();
+            const isStudent = await Student.findOne({ user: user._id }).count();
+            const isParent = await Parent.findOne({ user: user._id }).count();
+            const isTeacher = await Teacher.findOne({ user: user._id }).count();
 
             if (isAdmin) {
                 role = USER_ROLE.ADMIN;

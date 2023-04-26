@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { StudentInterface } from '../interfaces/student.interface';
+import { IStudent } from '../interfaces/student.interface';
 
-const studentSchema = new Schema<StudentInterface>(
+const studentSchema = new Schema<IStudent>(
     {
         class: {
             type: Schema.Types.ObjectId,
@@ -46,6 +46,6 @@ studentSchema.pre('save', function (next) {
     });
 });
 
-const Student = mongoose.model<StudentInterface>('Student', studentSchema);
+const Student = mongoose.model<IStudent>('Student', studentSchema);
 
 export default Student;

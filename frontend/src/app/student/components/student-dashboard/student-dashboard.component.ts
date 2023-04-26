@@ -18,6 +18,7 @@ export class StudentDashboardComponent implements OnInit {
     this.userService.getUserData().subscribe(
       (response: any) => {
         if (response.status == 200) this.user = response.data;
+        localStorage.setItem('userId', response.data._id);
       },
       (error: any) => {}
     );

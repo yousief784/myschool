@@ -8,6 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NoPermissionComponent } from './no-permission/no-permission.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { StudentModule } from './student/student.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { NoPermissionComponent } from './no-permission/no-permission.component';
     AppRoutingModule,
     AdminModule,
     ReactiveFormsModule,
+    StudentModule,
     HttpClientModule,
+    FullCalendarModule,
   ],
   exports: [],
   providers: [],

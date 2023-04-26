@@ -34,7 +34,9 @@ export class AuthService {
           this.token = response.token;
           localStorage.setItem('token', response.token);
           localStorage.setItem('role', response.role);
-          this.router.navigate([`${response.role}`]);
+          this.router.navigate([`${response.role}`]).then(() => {
+            window.location.reload();
+          });
         },
         (errors: any) => {
           if (errors.error.status !== 400) return;
@@ -58,6 +60,7 @@ export class AuthService {
           if (response.status !== 200) return;
           localStorage.removeItem('token');
           localStorage.removeItem('role');
+          localStorage.removeItem('userId');
           this.router.navigate(['/']);
         },
         (error: any) => {

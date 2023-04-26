@@ -1,9 +1,12 @@
-import { ClassInterface } from './class.interface';
+import { IClass } from './class.interface';
+import { ITeacher } from './teacher.interface';
 
-export interface CourseInterface {
+export interface ICourse {
     _id: string;
     courseName: string;
     courseId: number;
-    classId: ClassInterface;
+    numberOfTimesPerWeek: number;
+    classId: IClass;
+    teacher: ITeacher;
     isDeleted: boolean;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClassService } from 'src/app/admin/services/adminStudent/class/class.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from 'src/app/admin/services/course/course.service';
+import { TeacherService } from 'src/app/admin/services/teacher/teacher.service';
 
 @Component({
   selector: 'app-add-course',
@@ -20,13 +21,20 @@ export class AddCourseComponent implements OnInit {
       ],
     ],
     classId: ['', [Validators.required]],
+    teacherId: ['', [Validators.required]],
+    numberOfTimesPerWeek: [
+      '',
+      [Validators.required, Validators.pattern(/[0-9]+$/)],
+    ],
   });
 
   classes: any = [];
+  teachers: any = [];
   constructor(
     private classService: ClassService,
     private formBuilder: FormBuilder,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private teacherService: TeacherService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +42,14 @@ export class AddCourseComponent implements OnInit {
       (response: any) => {
         if (response.status !== 200) return;
         this.classes = response.data;
+      },
+      (errors: any) => {}
+    );
+
+    this.teacherService.getAllTeachers().subscribe(
+      (response: any) => {
+        if (response.status !== 200) return;
+        this.teachers = response.data;
       },
       (errors: any) => {}
     );

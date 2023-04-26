@@ -11,7 +11,7 @@ export class ClassService {
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.token = authService.getUserToken();
+    this.token = this.authService.getUserToken();
     this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);

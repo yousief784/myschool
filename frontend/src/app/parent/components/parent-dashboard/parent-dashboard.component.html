@@ -1,12 +1,21 @@
 <div class="container">
   <nav class="navbar">
-    <div class="container">
+    <div class="container align-items-center">
       <div class="pt-3 d-flex">
-        <img src="./images/logo.png" height="50" alt="" />
+        <img src="assets/images/logo.png" height="50" alt="" />
         <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
       </div>
-      <div>
-        <h6 class="text-white">Hello , Lorem ipsum dolor sit.</h6>
+      <div class="d-flex align-items-center">
+        <div class="me-3">
+          <h6 class="text-white">
+            Hello , {{ user.parentName ? user.parentName : user.fullname }}
+          </h6>
+        </div>
+        <div class="float-end me-5">
+          <button type="button" (click)="logout()" class="btn btn-danger">
+            <i class="fa-solid fa-arrow-alt-circle-left"></i> Log out
+          </button>
+        </div>
       </div>
     </div>
   </nav>

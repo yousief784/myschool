@@ -12,6 +12,8 @@ import { StudentGuard } from './guard/student/student.guard';
 import { CheckAuthLoginPageGuard } from './guard/checkAuthLoginPage/check-auth-login-page.guard';
 import { AdminCourseComponent } from './admin/components/course/admin-course/admin-course.component';
 import { AdminStudentComponent } from './admin/components/student/admin-student/admin-student.component';
+import { AdmniTeacherComponent } from './admin/components/teacher/admni-teacher/admni-teacher.component';
+import { ScheduleComponent } from './student/components/schedule/schedule.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,7 @@ const routes: Routes = [
     children: [
       { path: '', component: AdminDashboardComponent },
       { path: 'student/:classId', component: AdminStudentComponent },
+      { path: 'teacher', component: AdmniTeacherComponent },
       { path: 'course', component: AdminCourseComponent },
     ],
     canActivate: [AuthGuard, AdminGuard],
@@ -36,7 +39,10 @@ const routes: Routes = [
 
   {
     path: 'student',
-    children: [{ path: '', component: StudentDashboardComponent }],
+    children: [
+      { path: '', component: StudentDashboardComponent },
+      { path: 'schedule', component: ScheduleComponent },
+    ],
     canActivate: [AuthGuard, StudentGuard],
   },
   {

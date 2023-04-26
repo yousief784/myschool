@@ -10,6 +10,8 @@ import { AdminCourseComponent } from './components/course/admin-course/admin-cou
 import { AdminStudentComponent } from './components/student/admin-student/admin-student.component';
 import { StudentDetailsComponent } from './components/student/student-details/student-details.component';
 import { StudentDeleteComponent } from './components/student/student-delete/student-delete.component';
+import { AdmniTeacherComponent } from './components/teacher/admni-teacher/admni-teacher.component';
+import { AddTeacherComponent } from './components/teacher/add-teacher/add-teacher.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { StudentDeleteComponent } from './components/student/student-delete/stud
     AdminCourseComponent,
     StudentDetailsComponent,
     StudentDeleteComponent,
+    AdmniTeacherComponent,
+    AddTeacherComponent,
   ],
   imports: [
     CommonModule,

@@ -37,6 +37,40 @@
           />
         </div>
 
+        <div
+          *ngIf="
+            addCourseValidation.get('courseName')!.invalid &&
+            addCourseValidation.get('courseName')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('courseName')!.hasError('required')"
+          >
+            * Course name is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('courseName')!.hasError('pattern')"
+          >
+            * course name is only characters
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('courseName')!.hasError('minlength')"
+          >
+            * Minumium length 2 char
+          </div>
+
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('courseName')!.hasError('maxlength')"
+          >
+            * Maximum length 50 char
+          </div>
+        </div>
+
         <div class="mb-3">
           <label for="classId" class="form-label">Class name</label>
           <select name="classID" class="form-select" formControlName="classId">
@@ -45,6 +79,89 @@
               {{ class.className }}
             </option>
           </select>
+        </div>
+
+        <div
+          *ngIf="
+            addCourseValidation.get('classId')!.invalid &&
+            addCourseValidation.get('classId')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('classId')!.hasError('required')"
+          >
+            * class is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="teacherId" class="form-label">Teacher name</label>
+          <select
+            name="classID"
+            class="form-select"
+            formControlName="teacherId"
+          >
+            <option value="" disabled selected>Select teacher name</option>
+            <option *ngFor="let teacher of teachers" value="{{ teacher._id }}">
+              {{ teacher.user.fullname }}
+            </option>
+          </select>
+        </div>
+
+        <div
+          *ngIf="
+            addCourseValidation.get('teacherId')!.invalid &&
+            addCourseValidation.get('teacherId')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('teacherId')!.hasError('required')"
+          >
+            * teacher is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="numberOfTimesPerWeek" class="form-label"
+            >Number of Times Per Week</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="numberOfTimesPerWeek"
+            formControlName="numberOfTimesPerWeek"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addCourseValidation.get('numberOfTimesPerWeek')!.invalid &&
+            addCourseValidation.get('numberOfTimesPerWeek')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              addCourseValidation
+                .get('numberOfTimesPerWeek')!
+                .hasError('required')
+            "
+          >
+            * Number of Lesson Times Per Week is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              addCourseValidation
+                .get('numberOfTimesPerWeek')!
+                .hasError('pattern')
+            "
+          >
+            * Number of Lesson Times Per Week is only numbers
+          </div>
         </div>
 
         <button

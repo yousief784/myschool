@@ -1,7 +1,7 @@
-import { UserInterface } from './user.interface';
+import { IUser } from './user.interface';
 
-export interface AdimnInterface {
+export interface IAdmin {
     _id: string;
-    user: UserInterface;
+    user: IUser;
     isDeleted: boolean;
 }

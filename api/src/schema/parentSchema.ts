@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { ParentInterface } from '../interfaces/parent.interface';
+import { IParent } from '../interfaces/parent.interface';
 
-const adminSchema = new Schema<ParentInterface>(
+const adminSchema = new Schema<IParent>(
     {
         parentPhone: {
             type: String,
@@ -30,6 +30,6 @@ const adminSchema = new Schema<ParentInterface>(
     { timestamps: true }
 );
 
-const Parent = mongoose.model<ParentInterface>('Parent', adminSchema);
+const Parent = mongoose.model<IParent>('Parent', adminSchema);
 
 export default Parent;

@@ -1,11 +1,11 @@
-import { CourseInterface } from './course.interface';
-import { StudentInterface } from './student.interface';
+import { ICourse } from './course.interface';
+import { IStudent } from './student.interface';
 
-export interface ClassInterface {
+export interface IClass {
     _id: string;
     className: string;
     classId: number;
-    students: StudentInterface[];
-    courses: CourseInterface[];
+    students: IStudent[];
+    courses: ICourse[];
     isDeleted: boolean;
 }

@@ -1,4 +1,4 @@
-export interface UserInterface extends Document {
+export interface IUser extends Document {
     _id: string;
     fullname: string;
     parentName: string;
