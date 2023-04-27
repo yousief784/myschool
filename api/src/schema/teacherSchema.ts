@@ -14,6 +14,13 @@ const teacherSchema = new Schema<ITeacher>(
                 ref: 'Course',
             },
         ],
+        numberOfLessons: {
+            type: Number,
+            min: 0,
+            max: [20, 'Number of lessons teacher take is 20 lesson'],
+            required: true,
+            default: 0,
+        },
         isDeleted: {
             type: Boolean,
             required: true,

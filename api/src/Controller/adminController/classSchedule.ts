@@ -6,15 +6,13 @@ import ClassSchedule from '../../schema/classScheduleSchema';
 class ClassScheduleController {
     create = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            // for one class{
             const { classId } = req.params;
             if (!classId)
                 return res
                     .status(400)
                     .json({ status: 400, message: 'Send classId' });
 
-            const deleteScheduleBeforeCreateItAgain =
-                await ClassSchedule.deleteMany({ classId: classId });
+            await ClassSchedule.deleteMany({ classId: classId });
 
             const coursesInThisClass = await Course.find({
                 classId: classId,
@@ -93,9 +91,21 @@ class ClassScheduleController {
                         }
                     }
 
+                    const checkIsTeacherHaveLessonInSameTime =
+                        await ClassSchedule.findOne({
+                            teacher: course.teacher,
+                            dayOfWeek: dayOfWeek,
+                            startTime: startTimeString,
+                        }).count();
+
+                    if (checkIsTeacherHaveLessonInSameTime) {
+                        continue;
+                    }
+
                     const schedule = new ClassSchedule({
                         classId: course.classId,
                         course: course._id,
+                        teacher: course.teacher,
                         dayOfWeek: dayOfWeek,
                         startTime: startTimeString,
                         endTime: endTimeString,
@@ -118,7 +128,7 @@ class ClassScheduleController {
             res.status(200).json({
                 status: 200,
                 data: createdSchedules,
-                message: 'return schedule successfully',
+                message: 'set schedule successfully',
             });
         } catch (err) {
             logger.error('An error occurred', { error: err });

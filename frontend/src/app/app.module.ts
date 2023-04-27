@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NoPermissionComponent } from './no-permission/no-permission.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { StudentModule } from './student/student.module';
+import { TeacherModule } from './teacher/teacher.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { StudentModule } from './student/student.module';
     AdminModule,
     ReactiveFormsModule,
     StudentModule,
+    TeacherModule,
     HttpClientModule,
     FullCalendarModule,
   ],

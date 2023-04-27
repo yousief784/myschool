@@ -50,6 +50,7 @@ class CourseController {
         try {
             const { courseName, classId, teacherId, numberOfTimesPerWeek } =
                 req.body;
+            let teacherNumberOfLessonsPerWeek: number = 0;
 
             if (!(courseName && classId && teacherId && numberOfTimesPerWeek))
                 return res
@@ -58,36 +59,32 @@ class CourseController {
 
             const isExistClass = await Course.find({
                 classId: classId,
-            });
+            }).count();
 
-            if (!isExistClass) {
-                return res.status(404).json({
-                    status: 404,
-                    message: 'Not found courses for this class',
-                });
+            if (isExistClass) {
+                const numberOfTimesPerWeekCount: number =
+                    await Course.aggregate([
+                        { $match: { classId: new Types.ObjectId(classId) } },
+                        {
+                            $group: {
+                                _id: null,
+                                total: { $sum: '$numberOfTimesPerWeek' },
+                            },
+                        },
+                    ]).then((data) => {
+                        return data[0].total;
+                    });
+
+                if (
+                    numberOfTimesPerWeekCount + numberOfTimesPerWeek > 30 ||
+                    numberOfTimesPerWeek < 0
+                )
+                    return res.status(400).json({
+                        status: 400,
+                        message:
+                            'Invalid number of times per week is more than 30 lesson',
+                    });
             }
-
-            const numberOfTimesPerWeekCount = await Course.aggregate([
-                { $match: { classId: new Types.ObjectId(classId) } },
-                {
-                    $group: {
-                        _id: null,
-                        total: { $sum: '$numberOfTimesPerWeek' },
-                    },
-                },
-            ]).then((data) => {
-                return data[0].total;
-            });
-
-            if (
-                numberOfTimesPerWeekCount + numberOfTimesPerWeek > 30 ||
-                numberOfTimesPerWeek < 0
-            )
-                return res.status(400).json({
-                    status: 400,
-                    message:
-                        'Invalid number of times per week is more than 30 lesson',
-                });
 
             const isClassExist = await Class.findOne({
                 _id: classId,
@@ -102,12 +99,17 @@ class CourseController {
             const isTeacherExist = await Teacher.findOne({
                 _id: teacherId,
                 isDeleted: false,
-            }).count();
+            }).then((data: any) => {
+                teacherNumberOfLessonsPerWeek =
+                    data.numberOfLessons + numberOfTimesPerWeek;
+                return data;
+            });
 
-            if (!isTeacherExist)
+            if (!isTeacherExist || teacherNumberOfLessonsPerWeek > 20)
                 return res.status(404).json({
                     status: 404,
-                    message: 'Teacher not found',
+                    message:
+                        'Teacher not exist or number of lessons more than 20',
                 });
 
             const createNewCourse = await Course.create({
@@ -117,12 +119,16 @@ class CourseController {
                 numberOfTimesPerWeek: numberOfTimesPerWeek,
             });
 
-            const teacher = await Teacher.findOneAndUpdate(
+            const updateTeacher = await Teacher.findOneAndUpdate(
                 {
                     _id: teacherId,
                     isDeleted: false,
                 },
-                { $push: { courses: createNewCourse._id } }
+                {
+                    $push: { courses: createNewCourse._id },
+                    numberOfLessons: teacherNumberOfLessonsPerWeek,
+                },
+                { runValidators: true }
             );
 
             if (!createNewCourse)

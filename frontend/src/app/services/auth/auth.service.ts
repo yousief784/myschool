@@ -64,6 +64,11 @@ export class AuthService {
           this.router.navigate(['/']);
         },
         (error: any) => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          localStorage.removeItem('userId');
+          this.router.navigate(['/']);
+
           console.log(error);
         }
       );

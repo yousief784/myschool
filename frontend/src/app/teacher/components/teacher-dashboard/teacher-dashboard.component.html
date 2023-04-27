@@ -1,0 +1,79 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container align-items-center">
+      <div class="pt-3 d-flex">
+        <img src="assets/images/logo.png" height="50" alt="" />
+        <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+      </div>
+      <div class="d-flex align-items-center">
+        <div class="me-3">
+          <h6 class="text-white">
+            Hello , {{ user.parentName ? user.parentName : user.fullname }}
+          </h6>
+        </div>
+        <div class="float-end me-5">
+          <button type="button" (click)="logout()" class="btn btn-danger">
+            <i class="fa-solid fa-arrow-alt-circle-left"></i> Log out
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ---------------------- -->
+  <div class="row mt-5 pt-5">
+    <div class="col-md-6 mb-4 wow rotateInDownLeft">
+      <div class="card w-50 ms-auto me-auto">
+        <a routerLink="/teacher/schedule" class="btn btn-success d-grid fw-bold fs-2">
+          <i class="fa-solid fa-school-flag fa-3x"></i>Schedule
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4 wow rotateInDownRight">
+      <div class="card w-50 ms-auto me-auto">
+        <button
+          type="button"
+          class="btn btn-success d-grid fw-bold fs-2"
+          data-bs-toggle="modal"
+          data-bs-target="#employeesModal"
+        >
+          <i class="fa-solid fa-check-to-slot fa-3x"></i>Grades
+        </button>
+
+        <div
+          class="modal fade"
+          id="employeesModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Student's grades
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <a href="Grade.html" class="btn btn-success d-grid mb-3"
+                  >Course : Lorem, ipsum.</a
+                >
+                <a href="Grade.html" class="btn btn-success d-grid mb-3"
+                  >Course : Lorem, ipsum.</a
+                >
+                <a href="#" class="btn btn-success d-grid"> ... </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

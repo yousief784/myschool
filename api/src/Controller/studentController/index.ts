@@ -3,6 +3,7 @@ import { logger } from '../../app';
 import ClassSchedule from '../../schema/classScheduleSchema';
 import Course from '../../schema/courseSchema';
 import Student from '../../schema/studentSchema';
+import TermDate from '../../schema/termDateSchema';
 
 class StudentController {
     getSchedule = async (req: Request, res: Response, next: NextFunction) => {
@@ -70,7 +71,7 @@ class StudentController {
             res.status(200).json({
                 status: 200,
                 data: student,
-                message: `get courses successfully`,
+                message: `get student data successfully`,
             });
         } catch (error) {
             logger.error('An error occurred', { error: error });

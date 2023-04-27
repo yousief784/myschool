@@ -1,0 +1,59 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container">
+      <a routerLink="/" class="nav-link">
+        <div class="pt-3 d-flex">
+          <img src="assets/images/logo.png" height="50" alt="" />
+          <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+        </div>
+      </a>
+    </div>
+  </nav>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="termDateSetSuccessfully" class="alert alert-success">
+    {{ termDateSetSuccessfully }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <h3 class="text-white fw-bold mb-4">Set Term Scedule</h3>
+
+  <form [formGroup]="setTermScheduleValidation" (ngSubmit)="setTermSchedule()">
+    <div class="row row-cols-2">
+      <div class="col d-grid mb-3">
+        <label for="startDate" class="form-label text-white">Start Date</label>
+        <input type="date" class="form-contol" formControlName="startDate" />
+      </div>
+
+      <div class="col d-grid mb-3">
+        <label for="endDate" class="form-label text-white">End Date</label>
+        <input type="date" class="form-contol" formControlName="endDate" />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="setTermScheduleValidation.invalid"
+      class="btn btn-success"
+    >
+      Submit
+    </button>
+  </form>
+
+  <div class="row row-cols-4 mt-5">
+    <div *ngFor="let class of classes" class="col mb-4">
+      <button
+        class="btn btn-primary text-white p-3 d-grid"
+        (click)="setClassSchedule(class._id)"
+      >
+        Set Schedule for {{ class.className }}
+      </button>
+    </div>
+  </div>
+</div>

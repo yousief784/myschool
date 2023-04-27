@@ -2,31 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { StudentScheduleService } from '../../services/schedule/student-schedule.service';
 import { CourseService } from 'src/app/admin/services/course/course.service';
 import { StudentService } from '../../services/student/student.service';
+import { StudentScheduleService } from '../../services/student/studentSchedule/student-schedule.service';
 
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css'],
 })
-export class ScheduleComponent {
+export class ScheduleComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
       right: 'timeGridWeek,timeGridDay', // user can switch between the two
     },
-    plugins: [
-      dayGridPlugin,
-      timeGridPlugin
-    ],
+    plugins: [dayGridPlugin, timeGridPlugin],
     height: 580,
     initialView: 'timeGridWeek',
     slotMinTime: '08:00:00',
     slotMaxTime: '15:00:00',
     slotDuration: '01:00:01',
+    hiddenDays: [5, 6],
   }; // import calendar plugins
   calendarEvents: EventInput[] = []; // initialize empty events array
   daysOfWeek = [
@@ -52,9 +50,12 @@ export class ScheduleComponent {
   ];
   coursesColors: any = [];
   classId: string = '';
+  termStartDate: string = '';
+  termEndDate: string = '';
+  isFoundSchedule: boolean = true;
 
   constructor(
-    private studentScheduleSerivce: StudentScheduleService,
+    private studentScheduleService: StudentScheduleService,
     private courseService: CourseService,
     private studentService: StudentService
   ) {}
@@ -66,7 +67,6 @@ export class ScheduleComponent {
     });
 
     setTimeout(() => {
-      console.log(this.classId);
       this.courseService
         .getCoursesByClass(this.classId)
         .subscribe((res: any) => {
@@ -78,9 +78,22 @@ export class ScheduleComponent {
           });
         });
 
-      this.studentScheduleSerivce
-        .getSchedule(this.classId)
-        .subscribe((res: any) => {
+      this.studentScheduleService.getTermDate().subscribe(
+        (res: any) => {
+          this.termStartDate = res.data.startDate;
+          this.termEndDate = res.data.endDate;
+        },
+        (errors: any) => {          
+          this.isFoundSchedule = false;
+        }
+      );
+
+      this.studentScheduleService.getStudentSchedule(this.classId).subscribe(
+        (res: any) => {
+          if (res.status !== 200) {
+            return;
+          }
+
           this.calendarEvents = [];
           res.data.map((item: any, index: number) => {
             const courseColor = this.coursesColors.find(
@@ -93,13 +106,17 @@ export class ScheduleComponent {
               endTime: item.endTime,
               allDay: false,
               recurringEvent: true,
-              startRecur: '2023-02-08',
-              endRecur: '2023-05-07',
+              startRecur: this.termStartDate,
+              endRecur: this.termEndDate,
               daysOfWeek: [this.daysOfWeek.indexOf(item.dayOfWeek)],
               backgroundColor: courseColor ? courseColor.color : '#000',
             };
           });
-        });
+        },
+        (errors) => {
+          this.isFoundSchedule = false;
+        }
+      );
     }, 400);
   }
 }

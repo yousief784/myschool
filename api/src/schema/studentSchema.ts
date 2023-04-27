@@ -37,11 +37,11 @@ studentSchema.pre('save', function (next) {
         return next();
     }
     // Find the highest userId in the collection and increment by 1
-    Student.findOne({}, {}, { sort: { studentId: -1 } }, (err, user) => {
+    Student.findOne({}, {}, { sort: { studentId: -1 } }, (err, student) => {
         if (err) {
             return next(err);
         }
-        doc.studentId = user ? user.studentId + 1 : 1;
+        doc.studentId = student ? student.studentId + 1 : 1;
         next();
     });
 });

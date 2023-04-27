@@ -12,6 +12,7 @@ import { StudentDetailsComponent } from './components/student/student-details/st
 import { StudentDeleteComponent } from './components/student/student-delete/student-delete.component';
 import { AdmniTeacherComponent } from './components/teacher/admni-teacher/admni-teacher.component';
 import { AddTeacherComponent } from './components/teacher/add-teacher/add-teacher.component';
+import { TermDateComponent } from './components/term-date/term-date.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AddTeacherComponent } from './components/teacher/add-teacher/add-teache
     StudentDeleteComponent,
     AdmniTeacherComponent,
     AddTeacherComponent,
+    TermDateComponent,
   ],
   imports: [
     CommonModule,

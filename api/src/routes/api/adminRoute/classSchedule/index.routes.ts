@@ -4,6 +4,6 @@ import ClassScheduleController from '../../../../Controller/adminController/clas
 const adminClassScheduleRouter: Router = Router();
 const classScheduleController = new ClassScheduleController();
 
-adminClassScheduleRouter.get('/:classId', classScheduleController.create);
+adminClassScheduleRouter.post('/:classId', classScheduleController.create);
 
 export default adminClassScheduleRouter;

@@ -41,12 +41,13 @@ export class StudentDetailsComponent implements OnInit {
       .showStudentDetails(this.studentId)
       .subscribe((response: any) => {
         if (response.status !== 200) return;
-
         this.studentDetails = response.data;
       });
   }
 
   openDetailsStudentModal() {
+    console.log(this.studentDetails);
+
     this.detailsStudentModal.nativeElement.style.display = 'block'; // Show student modal
   }
 

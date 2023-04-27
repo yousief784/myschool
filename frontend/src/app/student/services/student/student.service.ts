@@ -15,7 +15,7 @@ export class StudentService {
     private authService: AuthService,
     private userService: UserService
   ) {
-    this.token = authService.getUserToken();
+    this.token = this.authService.getUserToken();
     this.headers = new HttpHeaders()
       .set('content-type', 'application/json')
       .set('Authorization', `Bearer ${this.token}`);

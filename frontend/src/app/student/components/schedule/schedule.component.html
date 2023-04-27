@@ -1,5 +1,13 @@
-<full-calendar
-  class="calendar"
-  [options]="calendarOptions"
-  [events]="calendarEvents"
+<ng-container *ngIf="isFoundSchedule; else notFound">
+  <full-calendar
+    class="calendar"
+    [options]="calendarOptions"
+    [events]="calendarEvents"
   ></full-calendar>
+</ng-container>
+
+<ng-template #notFound>
+  <div class="container">
+    <div class="alert alert-danger mt-5">No Schedule set for you until now</div>
+  </div></ng-template
+>

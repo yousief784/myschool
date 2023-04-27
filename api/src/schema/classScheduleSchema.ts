@@ -12,6 +12,11 @@ const classScheduleSchema = new Schema<IClassSchedule>({
         ref: 'Course',
         required: true,
     },
+    teacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Teacher',
+        required: true,
+    },
     dayOfWeek: {
         type: String,
         enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],

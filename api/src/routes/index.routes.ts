@@ -9,9 +9,12 @@ import adminRouter from './api/adminRoute/index.routes';
 import teacherRouter from './api/teacherRoute/index.routes';
 import parentRouter from './api/parentRoute/index.routes';
 import studentRouter from './api/studentRoute/index.routes';
+import GeneralController from '../Controller/generalController';
 
 const router: Router = Router();
+const generalController = new GeneralController();
 
+router.get('/term-date', generalController.getTermDate);
 router.use('/users', userRouter);
 router.use(authMiddleware);
 router.use('/admin', adminMiddleware, adminRouter);

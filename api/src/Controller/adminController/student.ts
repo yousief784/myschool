@@ -118,6 +118,9 @@ class AdminStudentController {
                 ])
                 .select(['_id', 'studentId']);
 
+                // console.log(studentInThisClass);
+                
+
             if (!studentInThisClass)
                 return res.status(404).json({
                     status: 404,
