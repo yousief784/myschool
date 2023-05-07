@@ -3,6 +3,7 @@ import { ClassService } from 'src/app/admin/services/adminStudent/class/class.se
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from 'src/app/admin/services/course/course.service';
 import { TeacherService } from 'src/app/admin/services/teacher/teacher.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-course',
@@ -34,7 +35,8 @@ export class AddCourseComponent implements OnInit {
     private classService: ClassService,
     private formBuilder: FormBuilder,
     private courseService: CourseService,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,12 @@ export class AddCourseComponent implements OnInit {
         if (response.status !== 200) return;
         this.classes = response.data;
       },
-      (errors: any) => {}
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
+      }
     );
 
     this.teacherService.getAllTeachers().subscribe(
@@ -51,7 +58,12 @@ export class AddCourseComponent implements OnInit {
         if (response.status !== 200) return;
         this.teachers = response.data;
       },
-      (errors: any) => {}
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
+      }
     );
   }
 

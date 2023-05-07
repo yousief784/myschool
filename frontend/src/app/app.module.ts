@@ -25,7 +25,6 @@ import { TeacherModule } from './teacher/teacher.module';
     AdminModule,
     ReactiveFormsModule,
     StudentModule,
-    TeacherModule,
     HttpClientModule,
     FullCalendarModule,
   ],

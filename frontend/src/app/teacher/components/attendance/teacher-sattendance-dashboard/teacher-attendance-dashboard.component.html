@@ -1,0 +1,45 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container">
+      <div class="pt-3 d-flex">
+        <img src="assets/images/logo.png" height="50" alt="" />
+        <a routerLink="/" class="nav-link">
+          <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row">
+    <ng-container *ngIf="noClassNow; else notFound">
+      <div class="col-md-3" *ngFor="let student of students">
+        <div class="card mb-3 px-4 py-1">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="fs-5">
+                <h6 class="mt-3 me-5">studentId: {{ student.studentId }}</h6>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <!-- btn btn-success mt-3 d-grid -->
+              <!-- <button type="button" class="btn btn-success my-2  d-grid"> -->
+                <!-- Details -->
+              <!-- </button> -->
+              <app-teacher-attendance
+                [studentId]="student._id"
+              ></app-teacher-attendance>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #notFound>
+      <div class="container">
+        <div class="alert alert-danger mt-5">
+          you don't have any lessons now
+        </div>
+      </div></ng-template
+    >
+  </div>
+</div>

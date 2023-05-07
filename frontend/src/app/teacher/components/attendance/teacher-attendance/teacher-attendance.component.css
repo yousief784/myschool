@@ -1,0 +1,56 @@
+button[type="button"] {
+  margin-top: 8px;
+}
+
+.circle {
+  background-color: gray;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-cr {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.buttons-cr {
+  display: none;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.circle:hover .buttons-cr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.nullColor {
+  background-color: blue;
+}
+
+.attendColor {
+  background-color: green;
+}
+
+.absentColor {
+  background-color: red;
+}

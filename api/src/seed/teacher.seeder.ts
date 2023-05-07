@@ -1,10 +1,10 @@
 import Chance from 'chance';
 import database from '../database';
-import Class from '../schema/classSchema';
 import User from '../schema/userSchema';
 import Teacher from '../schema/teacherSchema';
 
 const classes = async () => {
+    console.log('teacher');
     database.connect();
     let done = 0;
 

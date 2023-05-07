@@ -5,6 +5,7 @@ import adminClassRouter from './class/index.routes';
 import adminCourseRouter from './course/index.routes';
 import adminClassScheduleRouter from './classSchedule/index.routes';
 import adminTermDateRouter from './termDate/index.routes';
+import adminResultRouter from './result/index.routes';
 
 const adminRouter: Router = Router();
 
@@ -14,5 +15,6 @@ adminRouter.use('/class', adminClassRouter);
 adminRouter.use('/course', adminCourseRouter);
 adminRouter.use('/classSchedule', adminClassScheduleRouter);
 adminRouter.use('/term-date', adminTermDateRouter);
+adminRouter.use('/result', adminResultRouter);
 
 export default adminRouter;

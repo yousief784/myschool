@@ -14,6 +14,21 @@ const classSchema = new Schema<IClass>(
             type: Number,
             unique: true,
         },
+        students: [
+            {
+                type: Schema.Types.ObjectId,
+                required: true,
+                ref: 'Student',
+            },
+        ],
+        courses: [
+            {
+                type: Schema.Types.ObjectId,
+                required: true,
+                ref: 'Course',
+            },
+        ],
+
         isDeleted: {
             type: Boolean,
             required: true,

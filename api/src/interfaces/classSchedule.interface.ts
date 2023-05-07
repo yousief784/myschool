@@ -3,7 +3,7 @@ import { ICourse } from './course.interface';
 import { ITeacher } from './teacher.interface';
 
 export interface IClassSchedule {
-    dayOfWeek: string;
+    dayOfWeek: any;
     startTime: string;
     endTime: string;
     teacher: ITeacher;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TeacherService } from 'src/app/admin/services/teacher/teacher.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class AdmniTeacherComponent implements OnInit {
   errorMessage: string;
   teachers: any = [];
 
-  constructor(private teacherService: TeacherService) {
+  constructor(private teacherService: TeacherService, private router: Router) {
     this.successMessage =
       sessionStorage.getItem('teacherCreatedSuccessFully') || '';
 
@@ -28,8 +29,11 @@ export class AdmniTeacherComponent implements OnInit {
         if (response.status !== 200) return;
         this.teachers = response.data;
       },
-      (errors: any) => {
-        console.log(errors);
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
       }
     );
   }

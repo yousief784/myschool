@@ -1,0 +1,93 @@
+<button
+  type="button"
+  class="btn btn-success my-2 d-grid"
+  (click)="openDetailsStudentModal()"
+>
+  Details
+</button>
+
+<div class="modal" tabindex="-1" #attendanceDetails>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <!-- Student Modal Content -->
+      <div class="modal-header">
+        <h5 class="modal-title fs-5">Student Details</h5>
+        <button
+          type="button"
+          (click)="closeDetailsStudentModal()"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group my-2">
+          <label for="studentId"
+            >Student Name: {{ studentDetails.user.fullname }}</label
+          >
+        </div>
+
+        <div
+          class="form-group my-2"
+          *ngFor="let numberOfWeek of numberOfWeeks; let i = index"
+        >
+          <label for="studentId">Week: {{ numberOfWeek }}</label>
+
+          <div class="d-flex justify-content-center align-items-center">
+            <ng-container
+              *ngFor="
+                let attend of studentAttendance.slice(
+                  i *
+                    studentAttendance[0].classSchedule.course
+                      .numberOfTimesPerWeek,
+                  studentAttendance[0].classSchedule.course
+                    .numberOfTimesPerWeek *
+                    (i + 1)
+                );
+                let i = index
+              "
+            >
+              <div
+                class="circle"
+                *ngIf="todayIndex !== i"
+                [ngClass]="{
+                  attendColor: attend.attendance == 'attend',
+                  absentColor: attend.attendance == 'absent',
+                  nullColor: attend.attendance == null
+                }"
+              ></div>
+              <div
+                *ngIf="todayIndex === i"
+                class="circle"
+                (mouseenter)="showButtons = true"
+                (mouseleave)="showButtons = false"
+              >
+                <div class="buttons-cr" *ngIf="showButtons">
+                  <button
+                    class="btn-cr green"
+                    (click)="sendAttendance(attend._id, 'attend')"
+                  ></button>
+                  <button
+                    class="btn-cr red"
+                    (click)="sendAttendance(attend._id, 'absent')"
+                  ></button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            (click)="closeDetailsStudentModal()"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

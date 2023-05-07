@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClassService } from '../../services/adminStudent/class/class.service';
 import { TermDateService } from '../../services/termDate/term-date.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-term-date',
@@ -22,7 +23,8 @@ export class TermDateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private classService: ClassService,
-    private termDateService: TermDateService
+    private termDateService: TermDateService,
+    private router: Router
   ) {
     this.successMessage = sessionStorage.getItem('successMessage') || '';
 
@@ -39,9 +41,17 @@ export class TermDateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.classService.getAllClasses().subscribe((res: any) => {
-      this.classes = res.data;
-    });
+    this.classService.getAllClasses().subscribe(
+      (res: any) => {
+        this.classes = res.data;
+      },
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
+      }
+    );
   }
 
   setTermSchedule() {

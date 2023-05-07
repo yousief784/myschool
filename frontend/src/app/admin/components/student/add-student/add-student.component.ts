@@ -51,11 +51,11 @@ export class AddStudentComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private adminStudentService: AdminStudentService,
-    private router: ActivatedRoute
+    private activeRouter: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
-    this.router!.params.subscribe((params: any) => {
+    this.activeRouter!.params.subscribe((params: any) => {
       this.classId = params['classId'];
     });
   }

@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { CourseService } from 'src/app/admin/services/course/course.service';
 import { StudentService } from '../../services/student/student.service';
 import { StudentScheduleService } from '../../services/student/studentSchedule/student-schedule.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -21,7 +22,7 @@ export class ScheduleComponent implements OnInit {
     plugins: [dayGridPlugin, timeGridPlugin],
     height: 580,
     initialView: 'timeGridWeek',
-    slotMinTime: '08:00:00',
+    slotMinTime: '08:00:00', // turn on
     slotMaxTime: '15:00:00',
     slotDuration: '01:00:01',
     hiddenDays: [5, 6],
@@ -57,34 +58,53 @@ export class ScheduleComponent implements OnInit {
   constructor(
     private studentScheduleService: StudentScheduleService,
     private courseService: CourseService,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     // get student data to get from it classid and send classid to course service and studentschedule service
-    this.studentService.getStudentData().subscribe((res: any) => {
-      this.classId = res.data.class;
-    });
+    this.studentService.getStudentData().subscribe(
+      (res: any) => {
+        this.classId = res.data.class;
+      },
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
+      }
+    );
 
     setTimeout(() => {
-      this.courseService
-        .getCoursesByClass(this.classId)
-        .subscribe((res: any) => {
+      this.courseService.getCoursesByClass(this.classId).subscribe(
+        (res: any) => {
           res.data.map((item: any, index: number) => {
             this.coursesColors.push({
               course: item._id,
               color: this.colors[index],
             });
           });
-        });
+        },
+        (errors) => {
+          if (errors.error.status == 401) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/']);
+          }
+        }
+      );
 
       this.studentScheduleService.getTermDate().subscribe(
         (res: any) => {
           this.termStartDate = res.data.startDate;
           this.termEndDate = res.data.endDate;
         },
-        (errors: any) => {          
+        (errors: any) => {
           this.isFoundSchedule = false;
+          if (errors.error.status == 401) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/']);
+          }
         }
       );
 
@@ -115,6 +135,10 @@ export class ScheduleComponent implements OnInit {
         },
         (errors) => {
           this.isFoundSchedule = false;
+          if (errors.error.status == 401) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/']);
+          }
         }
       );
     }, 400);

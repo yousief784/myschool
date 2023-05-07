@@ -17,7 +17,7 @@ class TeacherScheduleController {
                 select: ['courseName'],
             });
 
-            if (!teacherSchedule)
+            if (!teacherSchedule.length)
                 return res.status(404).json({
                     status: 404,
                     message: 'Classes not found',

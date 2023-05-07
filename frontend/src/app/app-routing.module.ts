@@ -18,6 +18,9 @@ import { TermDateComponent } from './admin/components/term-date/term-date.compon
 import { TeacherGuard } from './guard/teacher/teacher.guard';
 import { TeacherDashboardComponent } from './teacher/components/teacher-dashboard/teacher-dashboard.component';
 import { TeacherScheduleComponent } from './teacher/components/teacher-schedule/teacher-schedule.component';
+import { TeacherAttendanceDashboardComponent } from './teacher/components/attendance/teacher-sattendance-dashboard/teacher-attendance-dashboard.component';
+import { ShowResultComponent } from './admin/components/result/show-result/show-result.component';
+import { SetResultComponent } from './admin/components/result/set-result/set-result.component';
 
 const routes: Routes = [
   {
@@ -33,6 +36,13 @@ const routes: Routes = [
       { path: 'teacher', component: AdmniTeacherComponent },
       { path: 'course', component: AdminCourseComponent },
       { path: 'set-term-schedule', component: TermDateComponent },
+      {
+        path: 'result/:classId',
+        children: [
+          { path: '', component: ShowResultComponent },
+          { path: 'set', component: SetResultComponent },
+        ],
+      },
     ],
     canActivate: [AuthGuard, AdminGuard],
   },
@@ -46,6 +56,10 @@ const routes: Routes = [
     children: [
       { path: '', component: TeacherDashboardComponent },
       { path: 'schedule', component: TeacherScheduleComponent },
+      {
+        path: 'attendance',
+        component: TeacherAttendanceDashboardComponent,
+      },
     ],
     canActivate: [TeacherGuard],
   },

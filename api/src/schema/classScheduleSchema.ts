@@ -19,7 +19,8 @@ const classScheduleSchema = new Schema<IClassSchedule>({
     },
     dayOfWeek: {
         type: String,
-        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
+        // enum: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
         required: true,
     },
     startTime: {

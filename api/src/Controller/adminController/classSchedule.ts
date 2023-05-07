@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { logger } from '../../app';
 import Course from '../../schema/courseSchema';
 import ClassSchedule from '../../schema/classScheduleSchema';
+import Attendance from '../../schema/attendanceSchema';
 
 class ClassScheduleController {
     create = async (req: Request, res: Response, next: NextFunction) => {
@@ -13,6 +14,7 @@ class ClassScheduleController {
                     .json({ status: 400, message: 'Send classId' });
 
             await ClassSchedule.deleteMany({ classId: classId });
+            await Attendance.deleteMany({ classId: classId });
 
             const coursesInThisClass = await Course.find({
                 classId: classId,
@@ -26,9 +28,11 @@ class ClassScheduleController {
                 'Tuesday',
                 'Wednesday',
                 'Thursday',
+                // 'Friday',
+                // 'Saturday',
             ];
-            const startHour = 8; // 8AM
-            const endHour = 14; // 2PM
+            const startHour = 7; // 8AM
+            const endHour = 13; // 2PM
             let countNumberOfLessons = 0;
             let assignedTimes = new Set();
 
@@ -60,7 +64,7 @@ class ClassScheduleController {
                             startTime.getTime() + 60 * 60 * 1000
                         );
                         const startHours = String(
-                            startTime.getHours()
+                            startTime.getHours() + 1
                         ).padStart(2, '0');
                         const startMinutes = String(
                             startTime.getMinutes()
@@ -69,10 +73,9 @@ class ClassScheduleController {
                             startTime.getSeconds()
                         ).padStart(2, '0');
 
-                        const endHours = String(endTime.getHours()).padStart(
-                            2,
-                            '0'
-                        );
+                        const endHours = String(
+                            endTime.getHours() + 1
+                        ).padStart(2, '0');
                         const endMinutes = String(
                             endTime.getMinutes()
                         ).padStart(2, '0');

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IStudent } from 'src/app/admin/models/student.interface';
 import { AdminStudentService } from 'src/app/admin/services/adminStudent/admin-student.service';
 
@@ -17,8 +17,9 @@ export class AdminStudentComponent implements OnInit {
   students: IStudent[] = [];
 
   constructor(
-    private router: ActivatedRoute,
-    private adminStudentService: AdminStudentService
+    private activeRouter: ActivatedRoute,
+    private adminStudentService: AdminStudentService,
+    private router: Router
   ) {
     this.successMessage =
       sessionStorage.getItem('studentAddedSuccessfully') || '';
@@ -42,7 +43,7 @@ export class AdminStudentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router!.params.subscribe((params: any) => {
+    this.activeRouter!.params.subscribe((params: any) => {
       this.classId = params['classId'];
     });
 
@@ -53,8 +54,11 @@ export class AdminStudentComponent implements OnInit {
           this.students = response.data;
         }
       },
-      (errors: any) => {
-        console.log(errors);
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
       }
     );
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -11,7 +12,8 @@ export class StudentDashboardComponent implements OnInit {
   user: any = {};
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -20,7 +22,11 @@ export class StudentDashboardComponent implements OnInit {
         if (response.status == 200) this.user = response.data;
         localStorage.setItem('userId', response.data._id);
       },
-      (error: any) => {}
+      (errors: any) => {          if (errors.error.status == 401) {
+        localStorage.removeItem('token');
+        this.router.navigate(['/']);
+      }
+}
     );
   }
 

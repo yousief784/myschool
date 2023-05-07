@@ -32,7 +32,7 @@ const studentSchema = new Schema<IStudent>(
 );
 
 studentSchema.pre('save', function (next) {
-    const doc = this;
+    const doc: any = this;
     if (!doc.isNew) {
         return next();
     }

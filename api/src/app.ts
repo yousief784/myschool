@@ -67,6 +67,7 @@ app.get('/', (req: Request, res: Response): void => {
 
 // Add the validation error handling middleware to your app
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.log(err)
     if (err instanceof MongooseError.ValidationError) {
 
         // Log the validation error using your Winston logger

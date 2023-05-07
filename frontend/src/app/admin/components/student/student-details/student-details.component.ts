@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IStudent } from 'src/app/admin/models/student.interface';
 import { AdminStudentService } from 'src/app/admin/services/adminStudent/admin-student.service';
 
@@ -34,20 +35,24 @@ export class StudentDetailsComponent implements OnInit {
     },
   };
 
-  constructor(private adminStudentService: AdminStudentService) {}
+  constructor(private adminStudentService: AdminStudentService, private router: Router) {}
 
   ngOnInit(): void {
-    this.adminStudentService
-      .showStudentDetails(this.studentId)
-      .subscribe((response: any) => {
+    this.adminStudentService.showStudentDetails(this.studentId).subscribe(
+      (response: any) => {
         if (response.status !== 200) return;
         this.studentDetails = response.data;
-      });
+      },
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
+      }
+    );
   }
 
   openDetailsStudentModal() {
-    console.log(this.studentDetails);
-
     this.detailsStudentModal.nativeElement.style.display = 'block'; // Show student modal
   }
 

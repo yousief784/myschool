@@ -191,9 +191,89 @@
 
     <div class="col-md-6 mb-4 wow rotateInUpRight">
       <div class="card w-50 ms-auto me-auto">
-        <a routerLink="/admin/set-term-schedule" class="btn btn-success d-grid fw-bold fs-2"
+        <a
+          routerLink="/admin/set-term-schedule"
+          class="btn btn-success d-grid fw-bold fs-2"
           ><i class="fa-solid fa-table-list fa-3x"></i>Term Schedule
         </a>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4 wow rotateInUpLeft">
+      <div class="card w-50 ms-auto me-auto">
+        <button
+          type="button"
+          class="btn btn-success d-grid fw-bold fs-2"
+          (click)="openShowResultModal()"
+        >
+          <i class="fa-solid fa-school-circle-check fa-3x"></i>Show Results
+        </button>
+
+        <div class="modal" tabindex="-1" #showResultModal>
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <!-- Student Modal Content -->
+              <div class="modal-header">
+                <h5 class="modal-title fs-5">Result Modal</h5>
+                <button
+                  type="button"
+                  (click)="closeShowResultModal()"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <a
+                  *ngFor="let class of classes"
+                  routerLink="/admin/result/{{ class._id }}"
+                  class="btn btn-success d-grid mb-3"
+                  >{{ class.className }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Student Modal -->
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4 wow rotateInUpLeft">
+      <div class="card w-50 ms-auto me-auto">
+        <button
+          type="button"
+          class="btn btn-success d-grid fw-bold fs-2"
+          (click)="openSetResultModal()"
+        >
+          <i class="fa-solid fa-school-circle-exclamation fa-3x"></i>Set Results
+        </button>
+
+        <div class="modal" tabindex="-1" #setResultModal>
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <!-- Student Modal Content -->
+              <div class="modal-header">
+                <h5 class="modal-title fs-5">Result Modal</h5>
+                <button
+                  type="button"
+                  (click)="closeSetResultModal()"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <a
+                  *ngFor="let class of classes"
+                  routerLink="/admin/result/{{ class._id }}/set"
+                  class="btn btn-success d-grid mb-3"
+                  >{{ class.className }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Student Modal -->
       </div>
     </div>
   </div>

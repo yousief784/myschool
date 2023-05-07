@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICourse } from 'src/app/admin/models/course.interface';
 import { CourseService } from 'src/app/admin/services/course/course.service';
 
@@ -12,7 +13,7 @@ export class AdminCourseComponent implements OnInit {
   errorMessage: string;
   courses: ICourse[] = [];
 
-  constructor(private courseService: CourseService) {
+  constructor(private courseService: CourseService, private router: Router) {
     this.successMessage =
       sessionStorage.getItem('courseCreatedSuccessFully') || '';
 
@@ -24,12 +25,20 @@ export class AdminCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.courseService.getAllCourses().subscribe((response: any) => {
-      if (response.status == 200) {
-        console.log(response.data);
-        
-        this.courses = response.data;
+    this.courseService.getAllCourses().subscribe(
+      (response: any) => {
+        if (response.status == 200) {
+          console.log(response.data);
+
+          this.courses = response.data;
+        }
+      },
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
       }
-    });
+    );
   }
 }

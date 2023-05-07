@@ -117,6 +117,13 @@ class CourseController {
                 classId: classId,
                 teacher: teacherId,
                 numberOfTimesPerWeek: numberOfTimesPerWeek,
+            }).then(async (course: any) => {
+                await Class.findOneAndUpdate(
+                    { _id: classId },
+                    { $push: { courses: course._id } }
+                );
+
+                return course;
             });
 
             const updateTeacher = await Teacher.findOneAndUpdate(

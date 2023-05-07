@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { TeacherService } from '../../services/teacher.service';
 import { StudentScheduleService } from 'src/app/student/services/student/studentSchedule/student-schedule.service';
 import { TeacherScheduleService } from '../../services/teacher/teacherSchedule/teacher-schedule.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-schedule',
@@ -43,28 +44,43 @@ export class TeacherScheduleComponent implements OnInit {
   constructor(
     private teacherServices: TeacherService,
     private studentScheduleService: StudentScheduleService,
-    private teacherScheduleService: TeacherScheduleService
+    private teacherScheduleService: TeacherScheduleService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.teacherServices.getTeacherData().subscribe((res: any) => {
-      this.teacherId = res.data._id;
-    });
+    this.teacherServices.getTeacherData().subscribe(
+      (res: any) => {
+        this.teacherId = res.data._id;
+      },
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+        }
+      }
+    );
 
     setTimeout(() => {
-      this.studentScheduleService.getTermDate().subscribe((res: any) => {
-        if (res.status !== 200) return;
-        this.termStartDate = res.data.startDate;
-        this.termEndDate = res.data.endDate;
-      });
+      this.studentScheduleService.getTermDate().subscribe(
+        (res: any) => {
+          if (res.status !== 200) return;
+          this.termStartDate = res.data.startDate;
+          this.termEndDate = res.data.endDate;
+        },
+        (errors) => {
+          if (errors.error.status == 401) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/']);
+          }
+        }
+      );
 
-      this.teacherScheduleService
-        .getTeacherSchedule(this.teacherId)
-        .subscribe((res: any) => {
+      this.teacherScheduleService.getTeacherSchedule(this.teacherId).subscribe(
+        (res: any) => {
           this.calendarEvents = [];
           res.data.map((item: any, index: number) => {
             console.log(item);
-            
+
             this.calendarEvents[index] = {
               title: item.course.courseName,
               startTime: item.startTime,
@@ -77,7 +93,14 @@ export class TeacherScheduleComponent implements OnInit {
               backgroundColor: '#000',
             };
           });
-        });
+        },
+        (errors) => {
+          if (errors.error.status == 401) {
+            localStorage.removeItem('token');
+            this.router.navigate(['/']);
+          }
+        }
+      );
     }, 400);
   }
 }

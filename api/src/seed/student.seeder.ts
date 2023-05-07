@@ -6,6 +6,8 @@ import User from '../schema/userSchema';
 import Chance from 'chance';
 
 const createStudent = async () => {
+    console.log('Student');
+
     database.connect();
     let done = 0;
     const exit = () =>
@@ -14,7 +16,7 @@ const createStudent = async () => {
         });
     const classes = await Class.find({ isDeleted: false });
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
         const studentChance = new Chance();
         const parentChance = new Chance();
         const studentFirstName = studentChance.first();
@@ -39,17 +41,19 @@ const createStudent = async () => {
         };
 
         const student = await User.create(studentData)
-            .then((user: any) => {
-                user.setPassword(
+            .then(async (user: any) => {
+                await user.setPassword(
                     String(studentData.nationalID),
-                    (error: any, user: any) => {
+                    async (error: any, user: any) => {
                         if (error) {
                             console.log(error);
                         } else {
-                            return user
+                            console.log(studentData.nationalID);
+
+                            return await user
                                 .save()
-                                .then((savedUser: any) => {
-                                    return savedUser;
+                                .then(async (savedUser: any) => {
+                                    return await savedUser;
                                 })
                                 .catch((error: any) => {
                                     console.log(error);
@@ -57,28 +61,30 @@ const createStudent = async () => {
                         }
                     }
                 );
-                return user;
+                return await user;
             })
             .then(async (user) => {
-                return await Student.create({
+                const createStudent = await Student.create({
                     user: user._id,
                     class: classes[Math.floor(Math.random() * classes.length)]
                         ._id,
                 });
+
+                return createStudent;
             });
 
         const parent = await User.create(parentData)
-            .then((user: any) => {
-                user.setPassword(
+            .then(async (user: any) => {
+                await user.setPassword(
                     String(parentData.nationalID),
-                    (error: any, user: any) => {
+                    async (error: any, user: any) => {
                         if (error) {
                             console.log(error);
                         } else {
-                            return user
+                            return await user
                                 .save()
-                                .then((savedUser: any) => {
-                                    return savedUser;
+                                .then(async (savedUser: any) => {
+                                    return await savedUser;
                                 })
                                 .catch((error: any) => {
                                     console.log(error);
@@ -86,31 +92,37 @@ const createStudent = async () => {
                         }
                     }
                 );
-                return user;
+                return await user;
             })
             .then(async (user: any) => {
                 const parent = await Parent.create({
                     parentPhone: parentData.parentPhone,
                     user: user._id,
                 }).then(async (parent: any) => {
-                    await Parent.findOneAndUpdate(
+                    const updateParent = await Parent.findOneAndUpdate(
                         { _id: parent._id },
-                        { $push: { students: student._id } }
+                        { $push: { students: student._id } },
+                        { new: true }
                     );
-                    return parent;
+                    return await updateParent;
                 });
-                return parent;
+                return await parent;
             });
 
-        await Student.findOneAndUpdate(
+        const updateStudent = await Student.findOneAndUpdate(
             { _id: student._id },
-            { parent: parent._id }
-        ).then(() => {
-            done++;
-            if (done == 50) {
-                exit();
-            }
-        });
+            { parent: Object.assign(parent as object)._id },
+            { new: true }
+        );
+        done++;
+        console.log('done: ', done);
+
+        if (done == 20) {
+            console.log('hhhh i am inside', done);
+
+            exit();
+            break;
+        }
     }
 };
 

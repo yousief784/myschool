@@ -118,8 +118,7 @@ class AdminStudentController {
                 ])
                 .select(['_id', 'studentId']);
 
-                // console.log(studentInThisClass);
-                
+            // console.log(studentInThisClass);
 
             if (!studentInThisClass)
                 return res.status(404).json({
@@ -226,6 +225,13 @@ class AdminStudentController {
             const newStudent = await Student.create({
                 user: addUser,
                 class: classIdIsFound!._id,
+            }).then(async (student: any) => {
+                await Class.findOneAndUpdate(
+                    { _id: classIdIsFound!._id },
+                    { $push: { students: student._id } }
+                );
+
+                return student;
             });
 
             const newParent = await User.findOne({

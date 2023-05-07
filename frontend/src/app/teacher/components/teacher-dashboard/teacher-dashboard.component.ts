@@ -23,14 +23,13 @@ export class TeacherDashboardComponent implements OnInit {
         if (response.status == 200) this.user = response.data;
         localStorage.setItem('userId', response.data._id);
       },
-      (error: any) => {}
+      (errors) => {
+        if (errors.error.status == 401) {
+          localStorage.removeItem('token');
+          this.router.navigate(['/']);
+        }
+      }
     );
-  }
-
-  navigateToSchedule() {
-    console.log('hell');
-
-    this.router.navigate(['/teacher/schedule']);
   }
 
   logout() {
