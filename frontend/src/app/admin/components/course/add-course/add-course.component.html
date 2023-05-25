@@ -164,6 +164,117 @@
           </div>
         </div>
 
+        <div class="mb-3">
+          <label for="courseWorkDegree" class="form-label"
+            >Course work degree</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="courseWorkDegree"
+            formControlName="courseWorkDegree"
+            min="0"
+            max="20"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addCourseValidation.get('courseWorkDegree')!.invalid &&
+            addCourseValidation.get('courseWorkDegree')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              addCourseValidation.get('courseWorkDegree')!.hasError('required')
+            "
+          >
+            * course work degree is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              addCourseValidation.get('courseWorkDegree')!.hasError('pattern')
+            "
+          >
+            * course work degree is only numbers
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="midTermDegree" class="form-label">Mid term degree</label>
+          <input
+            type="number"
+            class="form-control"
+            id="midTermDegree"
+            formControlName="midTermDegree"
+            min="0"
+            max="20"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addCourseValidation.get('midTermDegree')!.invalid &&
+            addCourseValidation.get('midTermDegree')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              addCourseValidation.get('midTermDegree')!.hasError('required')
+            "
+          >
+            * mid term degree is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="
+              addCourseValidation.get('midTermDegree')!.hasError('pattern')
+            "
+          >
+            * mid term degree is only numbers
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="finalDegree" class="form-label">Final Degree</label>
+          <input
+            type="number"
+            class="form-control"
+            id="finalDegree"
+            formControlName="finalDegree"
+            min="60"
+            max="100"
+            required
+          />
+        </div>
+
+        <div
+          *ngIf="
+            addCourseValidation.get('finalDegree')!.invalid &&
+            addCourseValidation.get('finalDegree')!.touched
+          "
+        >
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('finalDegree')!.hasError('required')"
+          >
+            * final degree is required
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="addCourseValidation.get('finalDegree')!.hasError('pattern')"
+          >
+            * final degree is only numbers
+          </div>
+        </div>
+
+        <div *ngIf="errorValidation" class="text-danger">* {{ errorValidation }}</div>
+
         <button
           type="submit"
           class="btn btn-success"

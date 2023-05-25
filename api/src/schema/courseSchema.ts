@@ -18,6 +18,18 @@ const courseSchema = new Schema<ICourse>(
         numberOfTimesPerWeek: {
             type: Number,
         },
+        courseWorkDegree: {
+            type: Number,
+            required: [true, 'course work degree is required'],
+        },
+        midTermDegree: {
+            type: Number,
+            required: [true, 'mid term degree is required'],
+        },
+        finalDegree: {
+            type: Number,
+            required: [true, 'final degree is required'],
+        },
         classId: {
             type: Schema.Types.ObjectId,
             required: true,

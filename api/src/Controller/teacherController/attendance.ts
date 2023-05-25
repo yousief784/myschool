@@ -244,11 +244,12 @@ class AttendanceController {
             });
 
             const daysOfWeek = [
+                'Sunday',
                 'Monday',
                 'Tuesday',
                 'Wednesday',
                 'Thursday',
-                'Friday',
+                // 'Friday',
             ];
 
             let firstLessonInWeek: any = {};
@@ -269,8 +270,8 @@ class AttendanceController {
             console.log('first', firstLessonInWeek);
 
             if (
-                'Tuesday' == firstLessonInWeek.dayOfWeek &&
-                '08:00:00' == firstLessonInWeek.startTime
+                date.weekday == firstLessonInWeek.dayOfWeek &&
+                date.startTime == firstLessonInWeek.startTime
             ) {
                 const attendances = [];
 

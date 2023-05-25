@@ -14,8 +14,8 @@ export class TeacherAttendanceComponent implements OnInit {
   @Input() studentId: string = '';
   showButtons = false;
   today: Date = new Date();
-  startTime = `${this.today.getHours()  < 10 ? '0' : ''}${
-    this.today.getHours() 
+  startTime = `${this.today.getHours() + 6 < 10 ? '0' : ''}${
+    this.today.getHours() + 6
   }:00:00`;
   todayIndex: number = -1;
   studentDetails: IStudent = {
@@ -68,7 +68,7 @@ export class TeacherAttendanceComponent implements OnInit {
             Date.UTC(
               this.today.getFullYear(),
               this.today.getMonth(),
-              this.today.getDate()
+              this.today.getDate() + 1
             )
           );
           const apiDateUTC = new Date(

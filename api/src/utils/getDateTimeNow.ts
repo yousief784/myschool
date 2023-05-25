@@ -1,10 +1,10 @@
 export function getDateTimeNow() {
     const date = new Date();
-    const startTime = `${date.getHours() + 1 < 10 ? '0' : ''}${
-        date.getHours() + 1
+    const startTime = `${date.getHours() + 7 < 10 ? '0' : ''}${
+        date.getHours() + 7
     }:00:00`;
 
-    const getWeekDayIndex = date.getDay();
+    const getWeekDayIndex = date.getDay() +1 ;
     let weekday = '';
 
     console.log(getWeekDayIndex);

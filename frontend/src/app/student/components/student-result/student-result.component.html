@@ -1,0 +1,41 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container">
+      <a routerLink="/" class="nav-link">
+        <div class="pt-3 d-flex">
+          <img src="assets/images/logo.png" height="50" alt="" />
+          <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+        </div>
+      </a>
+    </div>
+  </nav>
+  <!-- ---------------------- -->
+
+  <div class="alert alert-warning" *ngIf="notAllCourses">
+    The result of all the courses has not appeared yet, check the page again
+    later
+  </div>
+
+  <ng-container *ngIf="!noResult; else notFoundResult">
+    <table class="table table-dark table-striped">
+      <thead>
+        <th>course Name</th>
+        <th>Degree</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td>{{ course.courseName }}</td>
+          <ng-container *ngFor="let i of result">
+            <td *ngIf="i.teacher == course.teacher">
+              {{ i.courseWorkDegree + i.midTermDegree + i.finalDegree }}
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <ng-template #notFoundResult>
+    <div class="alert alert-warning">{{ noResult }}</div>
+  </ng-template>
+</div>

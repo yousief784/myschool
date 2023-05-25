@@ -5,7 +5,7 @@ class CheckFoldersExists {
     private pathFromRoot = process.cwd() + '/public';
 
     foldersAreExists = () => {
-        this.makeFolderIfNotExist('/uploads/images/userImage');
+        this.makeFolderIfNotExist('/images/studentImage');
     };
 
     private makeFolderIfNotExist = (folderPath: string) => {

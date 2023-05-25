@@ -15,9 +15,16 @@ class TermDateController {
 
             await TermDate.deleteMany();
 
+            const date1: any = new Date(startDate);
+            const date2: any = new Date(endDate);
+            const oneWeekInMs = 7 * 24 * 60 * 60 * 1000; // milliseconds in one week
+            const timeDiffInMs = Math.abs(date2 - date1);
+            const diffInWeeks = Math.floor(timeDiffInMs / oneWeekInMs);
+
             const createTermDate = await TermDate.create({
                 startDate: startDate,
                 endDate: endDate,
+                numberOfWeeks: diffInWeeks,
             });
 
             if (!createTermDate)

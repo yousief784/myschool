@@ -19,14 +19,20 @@ const port: number = parseInt(config.port as string) || 5000;
 const checkFoldersExists = new CheckFoldersExists();
 checkFoldersExists.foldersAreExists();
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:4200' }));
 
 // for Security
 app.use(helmet());
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    next();
+});
+
 // get images from the server
 app.use(express.static('public'));
-app.use('/images', express.static('images'));
+app.use('/images', express.static('public/images'));
 
 // request.body
 app.use(express.json());
@@ -67,9 +73,8 @@ app.get('/', (req: Request, res: Response): void => {
 
 // Add the validation error handling middleware to your app
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log(err)
+    console.log(err);
     if (err instanceof MongooseError.ValidationError) {
-
         // Log the validation error using your Winston logger
         logger.error('A validation error occurred', { error: err });
         if (err.name === 'ValidationError') {

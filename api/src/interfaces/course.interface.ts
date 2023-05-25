@@ -6,6 +6,9 @@ export interface ICourse {
     courseName: string;
     courseId: number;
     numberOfTimesPerWeek: number;
+    courseWorkDegree: number;
+    midTermDegree: number;
+    finalDegree: number;
     classId: IClass;
     teacher: ITeacher;
     isDeleted: boolean;

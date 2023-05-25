@@ -27,8 +27,36 @@ export class AddCourseComponent implements OnInit {
       '',
       [Validators.required, Validators.pattern(/[0-9]+$/)],
     ],
+    courseWorkDegree: [
+      '',
+      [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(20),
+        Validators.pattern(/[0-9]+$/),
+      ],
+    ],
+    midTermDegree: [
+      '',
+      [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(20),
+        Validators.pattern(/[0-9]+$/),
+      ],
+    ],
+    finalDegree: [
+      '',
+      [
+        Validators.required,
+        Validators.min(60),
+        Validators.max(100),
+        Validators.pattern(/[0-9]+$/),
+      ],
+    ],
   });
 
+  errorValidation: string = '';
   classes: any = [];
   teachers: any = [];
   constructor(
@@ -68,7 +96,17 @@ export class AddCourseComponent implements OnInit {
   }
 
   addNewCourse() {
-    if (this.addCourseValidation.invalid) return;
+    if (
+      this.addCourseValidation.invalid ||
+      this.addCourseValidation.get('courseWorkDegree')?.value +
+        this.addCourseValidation.get('midTermDegree')?.value +
+        this.addCourseValidation.get('finalDegree')?.value !=
+        100
+    ) {
+      this.errorValidation =
+        'sum of (course work degree, mid term degree and final degree not equal 100)';
+      return;
+    }
 
     this.courseService.addNewCourse(this.addCourseValidation.value);
   }

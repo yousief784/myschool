@@ -1,6 +1,7 @@
 export interface IStudent {
   _id: string;
   studentId: number;
+  studentImage?: string;
   user: {
     _id: string;
     fullname: string;

@@ -1,0 +1,88 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="container">
+      <a routerLink="/" class="nav-link">
+        <div class="pt-3 d-flex">
+          <img src="assets/images/logo.png" height="50" alt="" />
+          <h4 class="pt-3 ms-2 text-white fw-bold">University system</h4>
+        </div>
+      </a>
+
+      <button class="btn btn-success" (click)="showResult()">
+        Show Result
+      </button>
+      <button class="btn btn-success" (click)="hideResult()">
+        Hide Result
+      </button>
+    </div>
+  </nav>
+
+  <div *ngIf="showResultAlert" class="alert alert-success">
+    {{ showResultAlert }}
+  </div>
+
+  <div *ngIf="hideResultAlert" class="alert alert-success">
+    {{ hideResultAlert }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div
+    class="accordion accordion-flush bg-success mt-3"
+    id="accordionFlushExample"
+  >
+    <div
+      class="accordion-item"
+      *ngFor="let course of studentsInThisClass.courses; let i = index"
+    >
+      <h2 class="accordion-header">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          attr.data-bs-target="#flush-collapse{{ i }}"
+          aria-expanded="false"
+          attr.aria-controls="flush-collapse{{ i }}"
+        >
+          {{ course.courseName }}
+        </button>
+      </h2>
+      <div
+        id="flush-collapse{{ i }}"
+        class="accordion-collapse collapse"
+        data-bs-parent="#accordionFlushExample"
+      >
+        <div class="accordion-body">
+          <div
+            class="card mb-3 px-2 py-1"
+            *ngFor="let student of studentsInThisClass.students"
+          >
+            <div class="row">
+              <div class="col-md-2">
+                <div>
+                  <img src="assets/images/person- 1.jpg" height="70vh" alt="" />
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="fs-5 d-flex mt-3">
+                  <h5 class="me-5">ID: {{ student.studentId }}</h5>
+                  <h5>Name: {{ student.user.fullname }}</h5>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <app-set-result
+                  [studentId]="student._id"
+                  [classId]="studentsInThisClass._id"
+                  [teacherId]="course.teacher"
+                ></app-set-result>
+                <!-- End of Student Modal -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

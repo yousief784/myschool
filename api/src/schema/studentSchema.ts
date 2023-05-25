@@ -12,6 +12,9 @@ const studentSchema = new Schema<IStudent>(
             type: Number,
             unique: true,
         },
+        studentImage: {
+            type: String,
+        },
         user: {
             type: Schema.Types.ObjectId,
             required: true,

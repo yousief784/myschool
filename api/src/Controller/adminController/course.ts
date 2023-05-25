@@ -46,13 +46,64 @@ class CourseController {
         }
     };
 
+    show = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { courseId } = req.params;
+
+            if (!courseId)
+                return res
+                    .status(400)
+                    .json({ status: 400, message: 'Send course id' });
+
+            const course = await Course.findOne({ _id: courseId }).select([
+                '_id',
+                'courseName',
+                'numberOfTimesPerWeek',
+                'courseWorkDegree',
+                'midTermDegree',
+                'finalDegree',
+            ]);
+
+            if (!course)
+                return res
+                    .status(404)
+                    .json({ status: 404, message: 'Course not found' });
+
+            res.status(200).json({
+                status: 200,
+                data: course,
+                message: 'return course successfully',
+            });
+        } catch (error) {
+            logger.error('An error occurred', { error: error });
+            return next(error);
+        }
+    };
+
     create = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { courseName, classId, teacherId, numberOfTimesPerWeek } =
-                req.body;
+            const {
+                courseName,
+                classId,
+                teacherId,
+                numberOfTimesPerWeek,
+                courseWorkDegree,
+                midTermDegree,
+                finalDegree,
+            } = req.body;
             let teacherNumberOfLessonsPerWeek: number = 0;
 
-            if (!(courseName && classId && teacherId && numberOfTimesPerWeek))
+            if (
+                !(
+                    courseName &&
+                    classId &&
+                    teacherId &&
+                    numberOfTimesPerWeek &&
+                    courseWorkDegree &&
+                    midTermDegree &&
+                    finalDegree
+                )
+            )
                 return res
                     .status(400)
                     .json({ stauts: 400, message: 'Send valid data' });
@@ -117,6 +168,9 @@ class CourseController {
                 classId: classId,
                 teacher: teacherId,
                 numberOfTimesPerWeek: numberOfTimesPerWeek,
+                courseWorkDegree: courseWorkDegree,
+                midTermDegree: midTermDegree,
+                finalDegree: finalDegree,
             }).then(async (course: any) => {
                 await Class.findOneAndUpdate(
                     { _id: classId },

@@ -11,6 +11,7 @@ import { NoPermissionComponent } from './no-permission/no-permission.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { StudentModule } from './student/student.module';
 import { TeacherModule } from './teacher/teacher.module';
+import { ParentModule } from './parent/parent.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TeacherModule } from './teacher/teacher.module';
     BrowserModule,
     AppRoutingModule,
     AdminModule,
+    // ParentModule,
     ReactiveFormsModule,
     StudentModule,
     HttpClientModule,

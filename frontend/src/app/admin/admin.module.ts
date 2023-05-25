@@ -13,9 +13,10 @@ import { StudentDeleteComponent } from './components/student/student-delete/stud
 import { AdmniTeacherComponent } from './components/teacher/admni-teacher/admni-teacher.component';
 import { AddTeacherComponent } from './components/teacher/add-teacher/add-teacher.component';
 import { TermDateComponent } from './components/term-date/term-date.component';
-import { ResultDashboardComponent } from './components/result/result-dashboard/result-dashboard.component';
-import { ShowResultComponent } from './components/result/show-result/show-result.component';
-import { SetResultComponent } from './components/result/set-result/set-result.component';
+import { SetResultDashboardComponent } from './components/result/setResult/set-result-dashboard/set-result-dashboard.component';
+import { ShowResultDashboardComponent } from './components/result/showResult/show-result-dashboard/show-result-dashboard.component';
+import { SetResultComponent } from './components/result/setResult/set-result/set-result.component';
+import { ShowResultComponent } from './components/result/showResult/show-result/show-result.component';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,10 @@ import { SetResultComponent } from './components/result/set-result/set-result.co
     AdmniTeacherComponent,
     AddTeacherComponent,
     TermDateComponent,
-    ResultDashboardComponent,
-    ShowResultComponent,
+    SetResultDashboardComponent,
+    ShowResultDashboardComponent,
     SetResultComponent,
+    ShowResultComponent,
   ],
   imports: [
     CommonModule,

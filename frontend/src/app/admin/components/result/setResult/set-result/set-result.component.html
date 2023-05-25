@@ -1,0 +1,127 @@
+<button
+  type="button"
+  class="btn btn-success d-grid"
+  (click)="openSetResultModal()"
+>
+  Set Results
+</button>
+
+<div class="modal" tabindex="-1" #setResult>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <!-- Student Modal Content -->
+      <div class="modal-header">
+        <h5 class="modal-title fs-5">Result Modal</h5>
+        <button
+          type="button"
+          (click)="closeSetResultModal()"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="setResultValidation" (ngSubmit)="setResultSubmit()">
+          <div class="mb-3">
+            <label for="courseWorkDegree" class="form-label">Course Work</label>
+            <input
+              type="text"
+              class="form-control"
+              id="courseWorkDegree"
+              min="0"
+              max="20"
+              required
+              disabled
+              value="{{ courseWorkDegree }}"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="midTermDegree" class="form-label">Mid term Work</label>
+            <input
+              type="number"
+              class="form-control"
+              id="midTermDegree"
+              formControlName="midTermDegree"
+              pattern="[0-9]+$"
+              min="0"
+              max="20"
+              required
+              value="{{ showResult.midTermDegree || '' }}"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              setResultValidation.get('midTermDegree')!.invalid &&
+              setResultValidation.get('midTermDegree')!.touched
+            "
+          >
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('midTermDegree')!.hasError('required')
+              "
+            >
+              * Mid term degree is required
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('midTermDegree')!.hasError('pattern')
+              "
+            >
+              * mid term degree should only contain numbers
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="finalDegree" class="form-label">Final Degree</label>
+            <input
+              type="number"
+              class="form-control"
+              id="finalDegree"
+              formControlName="finalDegree"
+              pattern="[0-9]+$"
+              min="60"
+              max="80"
+              required
+              value="{{ showResult.finalDegree || '' }}"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              setResultValidation.get('finalDegree')!.invalid &&
+              setResultValidation.get('finalDegree')!.touched
+            "
+          >
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('finalDegree')!.hasError('required')
+              "
+            >
+              * final degree is required
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('finalDegree')!.hasError('pattern')
+              "
+            >
+              * fianl degree should only contain numbers
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-success mt-2"
+            [disabled]="setResultValidation.invalid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

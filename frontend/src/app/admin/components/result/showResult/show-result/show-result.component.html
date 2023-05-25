@@ -1,0 +1,77 @@
+<button
+  type="button"
+  class="btn btn-success d-grid"
+  (click)="openSetResultModal()"
+>
+  Set Results
+</button>
+
+<div class="modal" tabindex="-1" #showResult>
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <!-- Student Modal Content -->
+      <div class="modal-header">
+        <h5 class="modal-title fs-5">Result Modal</h5>
+        <button
+          type="button"
+          (click)="closeSetResultModal()"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="courseWorkDegree" class="form-label">Course Work</label>
+          <input
+            type="text"
+            class="form-control"
+            id="courseWorkDegree"
+            min="0"
+            max="20"
+            disabled
+            value="{{ courseWorkDegree }}"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="midTermDegree" class="form-label">Mid Term Work</label>
+          <input
+            type="number"
+            class="form-control"
+            id="midTermDegree"
+            pattern="[0-9]+$"
+            min="0"
+            max="20"
+            disabled
+            value="{{ showResultData.midTermDegree || '' }}"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="finalDegree" class="form-label">Fina Degree</label>
+          <input
+            type="number"
+            class="form-control"
+            id="finalDegree"
+            pattern="[0-9]+$"
+            min="60"
+            max="80"
+            disabled
+            required
+            value="{{ showResultData.finalDegree || '' }}"
+          />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        Total:
+        {{
+          courseWorkDegree +
+            showResultData.midTermDegree +
+            showResultData.finalDegree
+        }}
+      </div>
+    </div>
+  </div>
+</div>

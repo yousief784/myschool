@@ -10,6 +10,10 @@ const termDateScheduleSchema = new Schema<ITermDate>({
         type: String,
         required: true,
     },
+    numberOfWeeks: {
+        type: Number,
+        required: true
+    },
 });
 
 const TermDate = mongoose.model<ITermDate>('TermDate', termDateScheduleSchema);

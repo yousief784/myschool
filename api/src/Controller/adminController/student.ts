@@ -57,7 +57,12 @@ class AdminStudentController {
                         ],
                     },
                 ])
-                .select(['_id', 'classId', 'studentId']);
+                .select(['_id', 'classId', 'studentId', 'studentImage']);
+
+            studentInThisClass.map((student: any) => {
+                student.studentImage = `http://localhost:3000/images/studentImage/${student.studentImage}`;
+            });
+            console.log(studentInThisClass);
 
             if (!studentInThisClass)
                 return res.status(404).json({
@@ -152,6 +157,9 @@ class AdminStudentController {
             } = req.body;
             let studentAlreadyExist = false;
 
+            console.log('req.file: ', req.file);
+            console.log('req.body: ', req.body);
+
             if (
                 !(
                     fullname &&
@@ -226,6 +234,8 @@ class AdminStudentController {
                 user: addUser,
                 class: classIdIsFound!._id,
             }).then(async (student: any) => {
+                student.studentImage = req!.file!.filename;
+                await student.save();
                 await Class.findOneAndUpdate(
                     { _id: classIdIsFound!._id },
                     { $push: { students: student._id } }

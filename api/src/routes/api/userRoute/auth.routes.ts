@@ -2,9 +2,12 @@ import { Router, Request, Response } from 'express';
 import passport from 'passport';
 import AuthController from '../../../Controller/UserController/authUser';
 import authMiddleware from '../../../middlewares/auth.middleware';
+import multer from 'multer';
+import generateRandomString from '../../../utils/generateRandomString';
 
 const authRouter: Router = Router();
 const authController = new AuthController();
+
 
 authRouter.get('/failure', (req: Request, res: Response) => {
     try {

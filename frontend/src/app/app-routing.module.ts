@@ -18,9 +18,11 @@ import { TermDateComponent } from './admin/components/term-date/term-date.compon
 import { TeacherGuard } from './guard/teacher/teacher.guard';
 import { TeacherDashboardComponent } from './teacher/components/teacher-dashboard/teacher-dashboard.component';
 import { TeacherScheduleComponent } from './teacher/components/teacher-schedule/teacher-schedule.component';
-import { TeacherAttendanceDashboardComponent } from './teacher/components/attendance/teacher-sattendance-dashboard/teacher-attendance-dashboard.component';
-import { ShowResultComponent } from './admin/components/result/show-result/show-result.component';
-import { SetResultComponent } from './admin/components/result/set-result/set-result.component';
+import { TeacherAttendanceDashboardComponent } from './teacher/components/attendance/teacher-attendance-dashboard/teacher-attendance-dashboard.component';
+import { SetResultDashboardComponent } from './admin/components/result/setResult/set-result-dashboard/set-result-dashboard.component';
+import { ShowResultDashboardComponent } from './admin/components/result/showResult/show-result-dashboard/show-result-dashboard.component';
+import { ParentShowResultComponent } from './parent/components/parent-show-result/parent-show-result.component';
+import { StudentResultComponent } from './student/components/student-result/student-result.component';
 
 const routes: Routes = [
   {
@@ -39,8 +41,8 @@ const routes: Routes = [
       {
         path: 'result/:classId',
         children: [
-          { path: '', component: ShowResultComponent },
-          { path: 'set', component: SetResultComponent },
+          { path: '', component: ShowResultDashboardComponent },
+          { path: 'set', component: SetResultDashboardComponent },
         ],
       },
     ],
@@ -48,7 +50,10 @@ const routes: Routes = [
   },
   {
     path: 'parent',
-    children: [{ path: '', component: ParentDashboardComponent }],
+    children: [
+      { path: '', component: ParentDashboardComponent },
+      { path: 'result/:studentId', component: ParentShowResultComponent },
+    ],
     canActivate: [ParentGuard],
   },
   {
@@ -69,6 +74,7 @@ const routes: Routes = [
     children: [
       { path: '', component: StudentDashboardComponent },
       { path: 'schedule', component: ScheduleComponent },
+      { path: 'result', component: StudentResultComponent },
     ],
     canActivate: [AuthGuard, StudentGuard],
   },

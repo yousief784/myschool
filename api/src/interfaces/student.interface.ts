@@ -8,5 +8,6 @@ export interface IStudent {
     user: IUser;
     parent: IParent;
     studentId: number;
+    studentImage: string;
     isDeleted: boolean;
 }
