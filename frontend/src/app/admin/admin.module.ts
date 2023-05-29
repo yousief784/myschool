@@ -17,6 +17,7 @@ import { SetResultDashboardComponent } from './components/result/setResult/set-r
 import { ShowResultDashboardComponent } from './components/result/showResult/show-result-dashboard/show-result-dashboard.component';
 import { SetResultComponent } from './components/result/setResult/set-result/set-result.component';
 import { ShowResultComponent } from './components/result/showResult/show-result/show-result.component';
+import {ReportDashboardComponent} from "./components/report/report-dashboard/report-dashboard.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ShowResultComponent } from './components/result/showResult/show-result/
     ShowResultDashboardComponent,
     SetResultComponent,
     ShowResultComponent,
+    ReportDashboardComponent,
   ],
   imports: [
     CommonModule,

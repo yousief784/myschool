@@ -32,7 +32,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // get images from the server
 app.use(express.static('public'));
-app.use('/images', express.static('public/images'));
+app.use('/uploads', express.static('public'));
 
 // request.body
 app.use(express.json());

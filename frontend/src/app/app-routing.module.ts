@@ -23,6 +23,7 @@ import { SetResultDashboardComponent } from './admin/components/result/setResult
 import { ShowResultDashboardComponent } from './admin/components/result/showResult/show-result-dashboard/show-result-dashboard.component';
 import { ParentShowResultComponent } from './parent/components/parent-show-result/parent-show-result.component';
 import { StudentResultComponent } from './student/components/student-result/student-result.component';
+import {ReportDashboardComponent} from "./admin/components/report/report-dashboard/report-dashboard.component";
 
 const routes: Routes = [
   {
@@ -45,6 +46,12 @@ const routes: Routes = [
           { path: 'set', component: SetResultDashboardComponent },
         ],
       },
+      {
+        path: 'report',
+        children: [
+          {path: '', component: ReportDashboardComponent}
+        ]
+      }
     ],
     canActivate: [AuthGuard, AdminGuard],
   },

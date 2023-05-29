@@ -60,7 +60,9 @@ class AdminStudentController {
                 .select(['_id', 'classId', 'studentId', 'studentImage']);
 
             studentInThisClass.map((student: any) => {
-                student.studentImage = `http://localhost:3000/images/studentImage/${student.studentImage}`;
+                student.studentImage = `http://localhost:3000/images/studentImage/${
+                    student.studentImage || 'student.jpg'
+                }`;
             });
             console.log(studentInThisClass);
 
