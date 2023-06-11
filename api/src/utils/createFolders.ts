@@ -6,6 +6,8 @@ class CheckFoldersExists {
 
     foldersAreExists = () => {
         this.makeFolderIfNotExist('/images/studentImage');
+        this.makeFolderIfNotExist('/reports/class');
+        this.makeFolderIfNotExist('/reports/teacher');
     };
 
     private makeFolderIfNotExist = (folderPath: string) => {

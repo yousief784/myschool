@@ -32,15 +32,8 @@ export class AdminStudentService {
   }
 
   addNewStudent(student: object) {
-    // const boundary = '----boundary-' + Math.random().toString(16).substr(2);
     const headers = new HttpHeaders()
-      // .set(
-      //   'Content-Type',
-      //   `multipart/form-data; boundary=----WebKitFormBoundaryXYZ123`
-      // )
       .set('Authorization', `Bearer ${this.token}`);
-    console.log('from service: ', student);
-
     return this.http
       .post(`${environment.apiUrl}/api/admin/student/add-student`, student, {
         headers: headers,
@@ -56,13 +49,13 @@ export class AdminStudentService {
               'studentAddedSuccessfully',
               response.message
             );
-            // window.location.reload();
+            window.location.reload();
           }
         },
         (errors: any) => {
           console.log(errors);
           sessionStorage.setItem('studentAlreadyExist', errors.error.message);
-          // window.location.reload();
+          window.location.reload();
         }
       );
   }

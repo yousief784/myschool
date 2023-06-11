@@ -31,78 +31,10 @@ class AuthController {
         });
     };
 
-    // async update(req: Request, res: Response): Promise<void | object> {
-    //     try {
-    //         let passwordChangedHasError = false;
-    //         let message: string = '';
-    //         const {
-    //             firstName,
-    //             lastName,
-    //             userGender,
-    //             oldPassword,
-    //             newPassword,
-    //         } = req.body;
-    //         const authToken = req.header('authorization')?.split(' ')[1];
-
-    //         const updatedUser = await User.findOneAndUpdate(
-    //             { authToken: authToken },
-    //             {
-    //                 firstName,
-    //                 lastName,
-    //                 userGender,
-    //             },
-    //             {
-    //                 runValidators: true,
-    //                 new: true,
-    //             }
-    //         ).then((data: any) => {
-    //             if (oldPassword != undefined && newPassword != undefined) {
-    //                 data.changePassword(
-    //                     oldPassword,
-    //                     newPassword,
-    //                     (err: any, data: any) => {
-    //                         if (err) {
-    //                             console.log(err);
-    //                             return;
-    //                         }
-    //                         console.log('inkl');
-
-    //                         passwordChangedHasError = true;
-    //                         message =
-    //                             "password not updated old password isn't valid";
-    //                         data.save();
-    //                         return data;
-    //                     }
-    //                 );
-    //             }
-
-    //             return data;
-    //         });
-    //         console.log(message);
-
-    //         console.log(passwordChangedHasError);
-
-    //         message =
-    //             !passwordChangedHasError && 'your data update successfully';
-
-    //         return res.status(200).json({
-    //             status: 200,
-    //             message: message,
-    //         });
-    //     } catch (err) {
-    //         return res.status(500).json({
-    //             status: 500,
-    //             message: err,
-    //         });
-    //     }
-    // }
-
-    // async delete(req: Request, res: Response): Promise<void | object> {}
 
     login = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const user = req.user && Object.assign(req.user);
-            console.log('hello', req.body);
 
             let role: string = '';
             if (!user) {

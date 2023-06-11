@@ -12,7 +12,7 @@ const termDateScheduleSchema = new Schema<ITermDate>({
     },
     numberOfWeeks: {
         type: Number,
-        required: true
+        required: true,
     },
 });
 

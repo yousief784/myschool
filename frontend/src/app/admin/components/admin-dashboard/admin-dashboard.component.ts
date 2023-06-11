@@ -15,7 +15,7 @@ export class AdminDashboardComponent implements OnInit {
   @ViewChild('classModal') classModal: any; // Reference to the class modal
   @ViewChild('showResultModal') showResultModal: any; // Reference to the class modal
   @ViewChild('setResultModal') setResultModal: any; // Reference to the class modal
-  
+
   classCreatedSuccessFully: string = '';
   classError: string = '';
   classes: any = [];
@@ -52,6 +52,7 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserData().subscribe(
       (response: any) => {
+        console.log("userData", response)
         if (response.status == 200) this.user = response.data;
       },
       (errors) => {
@@ -88,7 +89,7 @@ export class AdminDashboardComponent implements OnInit {
   closeShowResultModal() {
     this.showResultModal.nativeElement.style.display = 'none'; // Hide result modal
   }
-  
+
   openSetResultModal() {
     this.getClasses();
     this.setResultModal.nativeElement.style.display = 'block'; // Show result modal

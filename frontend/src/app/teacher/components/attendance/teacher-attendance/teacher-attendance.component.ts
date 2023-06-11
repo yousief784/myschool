@@ -14,8 +14,8 @@ export class TeacherAttendanceComponent implements OnInit {
   @Input() studentId: string = '';
   showButtons = false;
   today: Date = new Date();
-  startTime = `${this.today.getHours() + 6 < 10 ? '0' : ''}${
-    this.today.getHours() + 6
+  startTime = `${this.today.getHours() + 11 < 10 ? '0' : ''}${
+    this.today.getHours() + 11
   }:00:00`;
   todayIndex: number = -1;
   studentDetails: IStudent = {

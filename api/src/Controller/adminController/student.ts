@@ -4,6 +4,7 @@ import Student from '../../schema/studentSchema';
 import User from '../../schema/userSchema';
 import Parent from '../../schema/parentSchema';
 import Class from '../../schema/classSchema';
+import config from '../../config';
 
 class AdminStudentController {
     index = async (req: Request, res: Response, next: NextFunction) => {
@@ -60,11 +61,10 @@ class AdminStudentController {
                 .select(['_id', 'classId', 'studentId', 'studentImage']);
 
             studentInThisClass.map((student: any) => {
-                student.studentImage = `http://localhost:3000/images/studentImage/${
-                    student.studentImage || 'student.jpg'
-                }`;
+                student.studentImage = `${
+                    config.uploadedFiles
+                }/images/studentImage/${student.studentImage || 'student.jpg'}`;
             });
-            console.log(studentInThisClass);
 
             if (!studentInThisClass)
                 return res.status(404).json({
@@ -125,8 +125,6 @@ class AdminStudentController {
                 ])
                 .select(['_id', 'studentId']);
 
-            // console.log(studentInThisClass);
-
             if (!studentInThisClass)
                 return res.status(404).json({
                     status: 404,
@@ -158,9 +156,6 @@ class AdminStudentController {
                 parentPhone,
             } = req.body;
             let studentAlreadyExist = false;
-
-            console.log('req.file: ', req.file);
-            console.log('req.body: ', req.body);
 
             if (
                 !(
@@ -230,8 +225,6 @@ class AdminStudentController {
                     message: 'Student already exists',
                 });
 
-            console.log(classIdIsFound);
-
             const newStudent = await Student.create({
                 user: addUser,
                 class: classIdIsFound!._id,
@@ -298,8 +291,6 @@ class AdminStudentController {
                     });
                 }
             });
-
-            // console.log(newParen / t);
 
             if (!newParent)
                 return res.status(400).json({

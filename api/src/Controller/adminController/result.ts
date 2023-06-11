@@ -29,7 +29,7 @@ class ResultController {
                 {
                     path: 'students',
                     model: Student,
-                    select: ['_id', 'studentId'],
+                    select: ['_id', 'studentId', 'studentImage'],
                     populate: {
                         path: 'user',
                         model: User,
@@ -42,6 +42,14 @@ class ResultController {
                     select: ['_id', 'courseName', 'teacher'],
                 },
             ]);
+
+            if (studentsInClass != null) {
+                studentsInClass.students.map((student: any) => {
+                    student.studentImage = `http://localhost:3000/images/studentImage/${
+                        student.studentImage || 'student.jpg'
+                    }`;
+                });
+            }
 
             if (!studentsInClass!.students.length)
                 return res.status(404).json({
@@ -95,7 +103,6 @@ class ResultController {
                 (numberOfWeeks[0].numberOfWeeks *
                     courseWork!.numberOfTimesPerWeek);
 
-            console.log('lesson * attendance', lessonDegree * attendance);
 
             res.status(200).json({
                 status: 200,
@@ -122,11 +129,6 @@ class ResultController {
                 finalDegree,
             } = req.body;
 
-            console.log(
-                'course work degree',
-                finalDegree + midTermDegree + courseWorkDegree
-            );
-            console.log(courseWorkDegree);
 
             if (
                 !(
@@ -144,7 +146,6 @@ class ResultController {
                     message: 'Send valid data',
                 });
 
-            console.log('no');
 
             const isStudentExist = await Student.countDocuments({
                 _id: studentId,

@@ -124,8 +124,6 @@ class ClassScheduleController {
                     }
                 }
             }
-            console.log(schedules);
-
             const createdSchedules = await ClassSchedule.insertMany(schedules);
 
             res.status(200).json({

@@ -19,7 +19,7 @@ const port: number = parseInt(config.port as string) || 5000;
 const checkFoldersExists = new CheckFoldersExists();
 checkFoldersExists.foldersAreExists();
 
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: '*' }));
 
 // for Security
 app.use(helmet());

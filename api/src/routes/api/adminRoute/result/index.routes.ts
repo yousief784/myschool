@@ -8,7 +8,7 @@ adminResultRouter.post('/set/degree', resultController.setStudentResult);
 adminResultRouter.get('/get/attendance', resultController.getStudentAttendance);
 adminResultRouter.get('/:classId', resultController.getStudentsInClass);
 adminResultRouter.get('/get-student/result', resultController.getStudentResult);
-adminResultRouter.post('/hide', resultController.hideResult)
-adminResultRouter.post('/show', resultController.showResult)
+adminResultRouter.post('/hide', resultController.hideResult);
+adminResultRouter.post('/show', resultController.showResult);
 
 export default adminResultRouter;

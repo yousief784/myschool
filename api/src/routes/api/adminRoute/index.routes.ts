@@ -6,7 +6,7 @@ import adminCourseRouter from './course/index.routes';
 import adminClassScheduleRouter from './classSchedule/index.routes';
 import adminTermDateRouter from './termDate/index.routes';
 import adminResultRouter from './result/index.routes';
-import adminReportRouter from "./report/index.routes";
+import adminReportRouter from './report/index.routes';
 
 const adminRouter: Router = Router();
 

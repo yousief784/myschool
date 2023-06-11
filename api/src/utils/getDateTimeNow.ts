@@ -1,13 +1,10 @@
 export function getDateTimeNow() {
     const date = new Date();
-    const startTime = `${date.getHours() + 7 < 10 ? '0' : ''}${
-        date.getHours() + 7
+    const startTime = `${date.getHours() + 12 < 10 ? '0' : ''}${
+        date.getHours() + 12
     }:00:00`;
-
-    const getWeekDayIndex = date.getDay() +1 ;
+    const getWeekDayIndex = date.getDay()
     let weekday = '';
-
-    console.log(getWeekDayIndex);
 
     switch (getWeekDayIndex) {
         case 0:
@@ -35,11 +32,7 @@ export function getDateTimeNow() {
             console.log('Invalid weekday');
     }
 
-    console.log({ weekday: weekday, startTime: startTime });
+    console.log('time', {weekday: weekday, startTime: startTime})
 
-    //change current time and date i will need it when i need to test the code
-    // const sunday = new Date(date.setDate(date.getDate() + 1 - date.getDay()));
-    // console.log(sunday); // Output: Sun May 08 2023 18:57:07 GMT-0400 (Eastern Daylight Time)
-    // console.log(date.getHours() - 7);
-    return { weekday: weekday, startTime: startTime };
+    return {weekday: weekday, startTime: startTime};
 }

@@ -8,7 +8,6 @@ import generateRandomString from '../../../utils/generateRandomString';
 const authRouter: Router = Router();
 const authController = new AuthController();
 
-
 authRouter.get('/failure', (req: Request, res: Response) => {
     try {
         res.status(400).json({

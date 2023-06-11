@@ -20,9 +20,11 @@ export class StudentDashboardComponent implements OnInit {
     this.userService.getUserData().subscribe(
       (response: any) => {
         if (response.status == 200) this.user = response.data;
+        console.log("res: ", response)
         localStorage.setItem('userId', response.data._id);
       },
-      (errors: any) => {          if (errors.error.status == 401) {
+      (errors: any) => {
+        if (errors.error.status == 401) {
         localStorage.removeItem('token');
         this.router.navigate(['/']);
       }

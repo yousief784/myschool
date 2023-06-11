@@ -73,7 +73,22 @@
             >
               * mid term degree should only contain numbers
             </div>
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('midTermDegree')!.hasError('min')
+              "
+            >* Minimum Degree for midterm is 0
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('midTermDegree')!.hasError('max')
+              "
+            >* Maximum Degree for midterm is 20
+            </div>
           </div>
+
 
           <div class="mb-3">
             <label for="finalDegree" class="form-label">Final Degree</label>
@@ -83,7 +98,7 @@
               id="finalDegree"
               formControlName="finalDegree"
               pattern="[0-9]+$"
-              min="60"
+              min="0"
               max="80"
               required
               value="{{ showResult.finalDegree || '' }}"
@@ -111,6 +126,21 @@
               "
             >
               * fianl degree should only contain numbers
+            </div>
+
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('finalDegree')!.hasError('min')
+              "
+            >* Minimum Degree for final is 0
+            </div>
+            <div
+              class="text-danger"
+              *ngIf="
+                setResultValidation.get('finalDegree')!.hasError('max')
+              "
+            >* Maximum Degree for final is 80
             </div>
           </div>
           <button

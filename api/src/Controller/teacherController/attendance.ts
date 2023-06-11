@@ -28,7 +28,6 @@ class AttendanceController {
                     return attend;
                 });
 
-            console.log('Attendance', attendance);
         } catch (error) {
             logger.error('An error occurred', { error: error });
             return next(error);
@@ -122,11 +121,6 @@ class AttendanceController {
             const student = await Student.findOne({ _id: studentId });
 
             const date = getDateTimeNow();
-            console.log({
-                teacherId: teacher._id,
-                dayOfWeek: date.weekday,
-                startTime: date.startTime,
-            });
 
             const classNow = await ClassSchedule.findOne({
                 teacher: teacher._id,
@@ -197,10 +191,6 @@ class AttendanceController {
             const lastDay = new Date(today);
             lastDay.setDate(today.getDate() + (6 - dayOfWeek));
 
-            console.log('First day of the week (Sunday): ', firstDay);
-            console.log('Last day of the week (Saturday): ', lastDay);
-            // return;
-
             const teacher = await Teacher.findOne({
                 user: user?._id,
             });
@@ -260,14 +250,12 @@ class AttendanceController {
                     (item) => item.dayOfWeek == day
                 );
                 if (firstLessonInWeek) break;
-                console.log('hey i am countinue in my way');
             }
 
             // if (
             //     date.weekday == firstLessonInWeek.dayOfWeek &&
             //     date.startTime == firstLessonInWeek.startTime
             // ) {
-            console.log('first', firstLessonInWeek);
 
             if (
                 date.weekday == firstLessonInWeek.dayOfWeek &&
@@ -329,7 +317,6 @@ class AttendanceController {
                     attendances
                 );
             } else {
-                console.log('not now');
             }
         } catch (error) {
             logger.error('An error occurred', { error: error });

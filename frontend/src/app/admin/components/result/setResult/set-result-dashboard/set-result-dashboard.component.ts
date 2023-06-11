@@ -38,6 +38,8 @@ export class SetResultDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.setResultService.getStudentInClass(this.classId).subscribe(
       (res: any) => {
+        console.log(res.data);
+
         if (res.status != 200) return;
         this.studentsInThisClass = res.data;
       },

@@ -5,7 +5,10 @@ import Class from '../../schema/classSchema';
 class ClassController {
     index = async (_req: Request, res: Response, next: NextFunction) => {
         try {
-            const classes = await Class.find({isDeleted: false}).select(['className', 'classId']);
+            const classes = await Class.find({ isDeleted: false }).select([
+                'className',
+                'classId',
+            ]);
 
             if (!classes)
                 return res.status(404).json({

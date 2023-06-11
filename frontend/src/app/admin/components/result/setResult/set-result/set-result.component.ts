@@ -32,7 +32,7 @@ export class SetResultComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.min(60),
+        Validators.min(0),
         Validators.max(80),
         Validators.pattern(/[0-9]+$/),
       ],
